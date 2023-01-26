@@ -1,0 +1,84 @@
+.modal_box {
+    // width: 25em;
+    //   height: 23em;
+    border-radius: 4px;
+    // background-color: var(--divider);
+    // padding: 1em 0.5em;
+    .modal_header {
+      // border-bottom: 1px dashed;
+      // box-shadow: rgb(0 0 0 / 16%) 0px 3px 3px, rgb(0 0 0 / 16%) 0px 3px 3px;
+    //   display: flex;
+    // align-items: center;
+    // box-shadow: rgb(0 0 0 / 16%) 0px 3px 3px, rgb(0 0 0 / 16%) 0px 3px 3px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 5px 3px #191b3457;
+    padding: 10px !important;
+    margin-bottom: 14px;
+    }
+    .modal_avatars {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5em;
+      padding: 0px 10px;
+      & > * {
+        margin-right: 5px;
+      }
+    }
+  }
+
+
+  .myStatusTag {
+    // position: absolute;
+    // width: 56px;
+    // height: 15px;
+    // background: #FFF;
+    // font-size: 8px;
+    // padding: 5px;
+    // display: flex;
+    // align-items: center;
+    // right: -17px;
+    // transform: rotate(45deg);
+    // color: red;
+    // top: 7px;
+    
+    transition: border-width .3s .2s ease;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2) #191B34;
+    border-width: 0;
+}
+.tagStatusHover:hover .myStatusTag {
+transition: border-width .3s ease;
+border-width: 0 18px 18px 0;
+}
+
+
+.dueDate__:hover .myStatusTag {
+  transition: border-width .3s ease;
+  border-width: 0 18px 18px 0;
+  }
+  
+
+  .cross_ {
+    position: absolute;
+    // right: 1px;
+    // top: -3px;
+    transform: rotate(45deg);
+    cursor: pointer;
+    right: -100%;
+    top: -100%;
+    z-index: -99;
+    display: none;
+  }
+
+  .dueDate__:hover .cross_ {
+    // transition: border-width .3s ease;
+    // border-width: 0 18px 18px 0;
+    right: 1px;
+    top: -3px;
+    z-index: 1;
+    display: block;
+    }

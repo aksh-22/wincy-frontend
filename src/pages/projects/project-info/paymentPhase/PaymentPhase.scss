@@ -1,0 +1,33 @@
+.paymentPhaseContainer {
+  .paymentPhase_headingRow {
+    background-color: #292f58;
+    height: 40px;
+    align-items: center;
+    padding-left: 15px;
+    border-radius: 4px 4px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 0.2fr 0.3fr 0.3fr 0.4fr;
+    outline: none;
+    border-bottom: 1px solid #191b34;
+  }
+
+  .paymentPhase_itemRow {
+    display: grid;
+    // grid-template-columns: 1fr 0.4fr 0.5fr 0.5fr 0.4fr;
+grid-template-columns: 1fr 0.2fr 0.3fr 0.3fr 0.4fr;
+  background-color: var(--projectCardBg);
+  height: 40px;
+  outline: none;
+  border-bottom: 1px solid #191b34    ;
+    &:hover{
+        background-color: var(--divider);
+    }
+
+  }
+  .paymentPhase_itemRow_sideLine {
+    width: 5px;
+    height: inherit;
+    background-color: #f2983e;
+    border-bottom: 1px solid #191b34;
+  }
+}

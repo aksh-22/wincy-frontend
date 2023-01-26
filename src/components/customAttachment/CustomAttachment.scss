@@ -1,0 +1,51 @@
+.customAttachment {
+  .customAttachment_add {
+      cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 200px;
+    border: 1px solid var(--divider);
+    height: 100px;
+    color: #8a9aff;
+    font-size: 12px;
+border-radius: 4px;
+    svg {
+      font-size: 68px;
+    }
+
+    p{
+        margin-top: -10px;
+    }
+  }
+
+  .customAttachment_image{
+    height: 100px;
+    width: 200px;
+position: relative;
+margin: 10px 20px 10px 0px;
+display: flex;
+img{
+    height: 100px;
+    width: 200px;   
+    object-fit: cover;
+    border-radius: 4px;
+cursor: pointer;
+}
+
+.image_removeIcon{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    background-color: var(--blakish);
+    height: 70px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 2px;
+}
+  }
+}

@@ -1,0 +1,25 @@
+.addHoursContent {
+  //   padding: 0.5rem;
+  width: 400px;
+}
+
+.tableRow {
+  display: grid;
+  position: relative;
+  grid-template-columns: 0.1fr 3fr 0.3fr 0.8fr 1fr 1fr 1fr;
+  background-color: var(--milestoneRowColor) !important;
+  align-items: center;
+  cursor: pointer;
+  height: auto;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 2.3em;
+}
+
+.tableRowEl {
+  display: grid;
+  grid-template-columns: 0.1fr 3fr 0.3fr 0.8fr 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--divider);
+  height: 35px;
+  margin-left: 1em;
+}

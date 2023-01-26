@@ -1,0 +1,120 @@
+.kanbanpopup {
+    min-width: 900px !important;
+    /* max-width: 900px !important; */
+    padding: 30px 25px 30px;
+    background: #2f3453 !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 0px #000 !important;
+}
+.leftContent {
+    width: calc(65% - 0px);
+}
+.rightContent {
+    min-width: calc(35% - 50px);
+}
+.headerSec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bodyContent {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center;     */
+    flex-wrap: wrap;
+}
+.textIcn {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.textIcn h3 {
+    font-weight: 500;
+    color: #8898fc;
+}
+.textIcn svg{
+    width: 20px;
+    height: auto;
+}
+.headerSec h1 {
+    font-weight: 500;
+    font-size: 36px;
+}
+.headerSec span {
+    width: 45px;
+    height: 45px;
+    background: var(--progressBarColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.discription .table-bordered {
+    border: 1px solid #454767;
+}
+.discription .table-bordered td {
+    border: 1px solid #454767;
+    padding: 0.5rem 0.75rem 0.5rem;
+    vertical-align: top;
+}
+.discription .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+.tblePlateform .inheritParent.justifyContent_center {
+    justify-content: flex-start !important;
+}
+.rightContent .actionList .listItem {
+    background:#22274a;
+    margin-bottom: 8px;
+    padding: 10px 20px 10px;
+    border-radius: 7px;
+    display: flex;
+}
+.rightContent .actionList .listItem h4 {
+    font-weight: 500;
+    color: #b5b5b5;
+}
+.rightContent .actionList .listItem svg{
+    width: 18px;
+    /* height: auto; */
+    color: #b5b5b5;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px){
+    .leftContent {
+        width: calc(100% - 0px);
+    }
+    .rightContent {
+        min-width: calc(100% - 0px);
+    }
+}
+
+.inputTextClickAway::placeholder{
+    font-size: 24px;
+    opacity: 0.7;
+}
+
+.inputTextClickAway:-ms-input-placeholder{
+    font-size: 24px;
+    opacity: 0.7;
+}
+
+.inputTextClickAway::-ms-input-placeholder{
+    font-size: 24px;
+    opacity: 0.7;
+}
+
+
+.dueDateComponent_showDate{
+    display: none;
+}
+.dueDateComponent:hover .dueDateComponent_showDate{
+    display: flex;
+    align-items: center;
+}

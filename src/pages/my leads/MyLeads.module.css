@@ -1,0 +1,127 @@
+.myLeads {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+  padding-right: 2em;
+  flex-direction: column;
+  font-size: 0.9em;
+  /* box-shadow: 0px 2px 9px -1px rgb(0 0 0 / 17%),
+    0px 1px 12px 0px rgb(0 0 0 / 10%), 0px 1px 3px 0px rgb(0 0 0 / 12%); */
+  font-family: "Lato-Regular";
+}
+
+/* ----------------------lead area--------------------- */
+
+.leadsArea {
+  margin-top: 1em;
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(23em, 1fr));
+  grid-gap: 1.5em;
+  min-height: 20vh;
+}
+
+/* ----------- Add card----------- */
+
+.leadCard {
+  width: 100%;
+  background: transparent !important;
+  background: linear-gradient(to right, #383e6d 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(#383e6d 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(to right, #383e6d 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(#383e6d 50%, rgba(255, 255, 255, 0) 0%) !important;
+  background-position: top, right, bottom, left !important;
+  background-repeat: repeat-x, repeat-y !important;
+  background-size: 13px 2px, 2px 13px !important;
+}
+
+/* ----------card----------------- */
+
+.card {
+  background-color: var(--projectCardBg);
+  border-radius: 10px;
+  padding: 1em;
+  /* height: 100%; */
+  /* animation: heightAnimation 0.3s linear; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+
+}
+
+.card_header {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.card_info_el {
+  display: flex;
+  color: var(--textColor);
+  align-items: center;
+  padding-top: 0.5em;
+}
+
+.card_info {
+  padding: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.card_info_el p {
+  padding-left: 0.5em;
+}
+
+.card_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1em;
+}
+
+.card_footer_date {
+  display: flex;
+  align-items: center;
+  color: var(--textColor);
+}
+
+.card_footer_date p {
+  padding-left: 0.5em;
+}
+
+.icon {
+  font-size: 1.4em;
+}
+
+.dateType {
+  /* font-family: "Lato-Light"; */
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: var(--defaultWhite);
+}
+
+.card_footer_right p,
+.card_footer_right svg {
+  color: var(--red);
+}
+
+@keyframes heightAnimation {
+  from {
+    height: 0em;
+  }
+  to {
+    height: 15em;
+  }
+}
+
+.card_Icn {
+  background: #191b34;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+}

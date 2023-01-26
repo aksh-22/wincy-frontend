@@ -1,0 +1,58 @@
+.tableRow {
+  display: grid;
+  position: relative;
+  grid-template-columns: 0.01fr 1.38fr 1fr 0.5fr 0.5fr 0.5fr 1fr;
+  background-color: var(--milestoneRowColor) !important;
+  align-items: center;
+  cursor: pointer;
+  height: auto;
+  padding: 0 1em;
+  padding-right: 0;
+  min-height: 50px;
+}
+
+.tableRow2 {
+  display: grid;
+  margin-left: 1em;
+  grid-template-columns: 0.01fr 1.38fr 1fr 0.5fr 0.5fr 0.5fr 1fr;
+  background-color: #22274b;
+  border-bottom: 1px solid var(--divider);
+}
+
+.extraEl {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.extraEl > * {
+  flex-basis: auto;
+  margin-left: 1em;
+}
+
+.subMilestone_sideLine {
+  background: #f2983e;
+  width: 5px;
+  transition: ease-in-out 0.2s;
+  overflow: hidden;
+}
+.subMilestone_sideLine_noHover {
+  background: #f2983e;
+  width: 5px;
+  overflow: hidden;
+}
+/* .tableRow2:hover .subMilestone_sideLine, */
+.subMilestone_sideLine:hover {
+  /* background: #f2983e; */
+  width: 40px;
+}
+
+.rowSelected {
+  width: 40px;
+  background-color: var(--lightBlue);
+}
+
+.addRow {
+  display: flex;
+  margin-left: 1em;
+  flex: 1;
+}

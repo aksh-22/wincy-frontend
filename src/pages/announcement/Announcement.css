@@ -1,0 +1,45 @@
+.containerRowAnnouncement{
+    display: flex;
+    align-items: center;
+    background-color: var(--divider);
+    padding : 10px;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+
+.containerRowAnnouncement .title {
+    font-size: 16px;
+    font-family: Lato-Bold;
+    padding-left: 10px;
+}
+
+.subContainerAnnouncement{
+background-color: var(--projectCardBg);
+}
+
+.subContainerAnnouncement_row{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.subContainerAnnouncement_row p{
+    margin-left: 10px;
+}
+
+.ruleContainer{
+    display: flex;
+    align-items: center;
+    background-color: var(--progressBarColor);
+    padding : 10px;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+
+.ruleContainer p {
+    font-size: 20px;
+    font-family: "Lato-Bold";
+    padding-left: 10px;
+}

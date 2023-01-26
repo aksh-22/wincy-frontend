@@ -1,0 +1,63 @@
+.signUp {
+  display: flex;
+}
+
+.signUp > * {
+  flex-basis: 100%;
+}
+
+.sign_left {
+  display: flex;
+  /* height: 80%; */
+  height:80vh;
+  margin: 0 2em;
+  margin-right: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign_left > * {
+  flex-basis: 100%;
+}
+
+.inputInsite input:-internal-autofill-selected {
+  background-color: transparent;
+}
+.input-wrap {
+  width: 100%;
+  /* display: inline-block; */
+}
+.signup__img_wrap {
+  position: relative;
+}
+
+.signup__img_wrap_in {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  color: #fff;
+  background: var(--yellow);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fileUpload {
+  text-align: center;
+}
+
+.signup__img_wrap img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+}

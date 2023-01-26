@@ -1,0 +1,13 @@
+.confirmDialogue {
+}
+
+.confirmDialogue > * {
+  margin: 1em;
+}
+
+.btn {
+  /* width: 100%; */
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}

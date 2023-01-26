@@ -1,0 +1,34 @@
+.popoverSelect{
+ .popoverSelect_action{
+    width: 100%;
+    height: 44px;
+    // margin-bottom: 15px;
+    padding-left: 15px;
+    border-radius: 6px;
+    background: #363D68;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+ }   
+ .popoverSelect_placeholder{
+     font-size: 16px;
+     color: #FFFFFF;
+     opacity: 0.6;
+ }
+
+//  .popoverSelect_popup{
+//   .MuiPaper-root{
+//       background-color:#2F3453;
+//   }
+// }
+// .MuiPopover-paper{
+//     background-color: red !important;
+// }
+
+
+}
+
+.popoverSelect_popup{
+    background-color:#2F3453 !important;
+}
+

@@ -1,0 +1,105 @@
+.myProfile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btnArea {
+  margin: 1em auto;
+  display: flex;
+}
+
+.btnArea > * {
+  margin: 1em !important;
+}
+
+.profileArea {
+  /* margin: 1em 0; */
+  display: flex;
+  width: 100%;
+}
+
+.profileArea > * {
+  margin: 1em;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+}
+
+.profileTag {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0;
+}
+
+.profileTag > * {
+  margin-right: 0.5em;
+}
+
+.profileTag span {
+  /* font-size: 0.7em; */
+  background-color: var(--violet);
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+}
+
+.boxArea {
+  margin: 3em 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  display: flex;
+  border: 1px solid var(--divider);
+  background-color: var(--paleBlack);
+  width: 25em;
+  font-size: 0.9em;
+  border-radius: 10px;
+  margin: 0.5em;
+  margin-right: 1em;
+  margin-left: 0;
+}
+
+.box > * {
+  margin: 1em 0;
+}
+
+.iconWrapper {
+  border-radius: 50%;
+  background-color: var(--newBlue);
+  min-width: 3em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+.passwordArea {
+  margin: 2em 0em;
+}
+
+.inputArea {
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+.inputArea > * {
+  margin: 1em 0 !important;
+  width: 25em;
+}
+
+.permissionModal{
+  /* background-color: #fff; */
+}
+
+@media (max-width: 600px) {
+  .profileArea {
+    flex-direction: column;
+  }
+}

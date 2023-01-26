@@ -1,0 +1,127 @@
+.bugs_table {
+  margin: 1em 0;
+  .my_table {
+    // background: rgb(107, 107, 250);
+    // height: 35px;
+    // width: 100%;
+    // border-radius: 7px;
+    width: 100%;
+
+    .my_table_head {
+      background: #181a33;
+      background-color: var(--milestoneRowColor);
+      border: solid 1px #4a5580;
+      // height: 35px;
+      width: 100%;
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: 0.1fr 2fr 0.5fr 0.8fr 0.8fr 0.8fr;
+      align-items: center;
+      padding: 1em 0;
+
+      .position-relative {
+        position: relative;
+        padding-left: 20px;
+        .position-absolute {
+          position: absolute;
+          //   transform: translateX(200px);
+
+          transform: translateY(-50%) translateX(-50%);
+        }
+      }
+      .my_table_head_col {
+        // background: rgb(111, 0, 255);
+        // padding: 0.3rem 1rem;
+        text-align: center;
+      }
+    }
+    .my_table_body {
+      width: 100%;
+      overflow-x: auto;
+      max-width: 100%;
+      .my_table_data_row {
+        padding: 0 0 0 0rem;
+        height: 35px;
+        // display: flex;
+        display: grid;
+        grid-template-columns: 0.1fr 2fr 0.5fr 0.8fr 0.8fr 0.8fr;
+        align-items: center;
+        font-size: 14px;
+        background: var(--milestoneRowElColor);
+        border-top: solid 1px var(--divider);
+
+        .my_table_data_col {
+          display: flex;
+          overflow: hidden;
+          .bugNameGrp {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+          }
+        }
+        .iconwrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // padding: 0 1em;
+          // width: 5em;
+        }
+
+        & p {
+          overflow: hidden;
+        }
+
+        .checkbox_hoverable {
+          background: var(--primary);
+          cursor: pointer;
+          width: 5px;
+          height: 100%;
+          margin-right: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover {
+            width: 40px;
+            transition: width 0.2s;
+            .showCheckbox {
+              display: block;
+            }
+          }
+
+          .showCheckbox {
+            display: none;
+          }
+        }
+        .disable_checkbox {
+          background: var(--primary);
+
+          width: 5px;
+          height: 100%;
+          margin-right: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .rowSelected {
+          width: 40px;
+          background-color: var(--lightBlue);
+        }
+        .showHover {
+          width: 40px;
+          transition: width 0.2s;
+          .showCheckbox {
+            display: block;
+          }
+        }
+
+        .bugNameClass {
+          border: solid 1px var(--primary);
+          width: 100%;
+        }
+
+        //my_table_data_row ends here
+      }
+    }
+  }
+}

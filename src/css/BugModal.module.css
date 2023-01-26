@@ -1,0 +1,100 @@
+.assignee{
+    background: var(--newBlueLight) !important;
+}
+
+.assignee .MuiAutocomplete-popper div{
+    background: var(--newBlueLight) !important;
+
+}
+
+.assignee .MuiAutocomplete-popper ul{
+    background: var(--newBlueLight) !important;
+}
+
+
+.selectRow{
+    border-bottom: 1px solid var(--defaultBlack) !important;
+    flex: 1;
+    background-color: var(--primary) !important;
+    color: #FFF;
+}
+
+.assigneeRow{
+    background: none;
+    padding: .5em;
+    cursor: pointer;
+}
+
+.selectImage{
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.uploadButton{
+    /* width: 100%; */
+    background-color:var(--lightBlue) !important;
+}
+
+.cancelButton{
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+    top: 5px;
+}
+
+.imageStyle{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+}
+
+.commentInput{
+border: 1px solid var(--divider);
+height: 40px;
+}
+.focusedInput{
+    border-color: var(--lightBlue);
+}
+
+.commentInput > input{
+    border: none;
+    /* height: inherit; */
+}
+.sideLine{
+    width: 5px;
+    background: var(--primary);
+}
+
+/* Comment */
+
+.commentBoxContainer{
+    border: 1px solid var(--divider);
+    padding: 10px;
+    margin: 20px 0px;
+    color:#FFF;
+  
+  }
+  
+
+.date_text {
+    opacity: 0.2;
+    font-size: 12px;
+  }
+  
+  .commentBox{
+  color:#FFF;
+  margin-bottom: 10px;
+  font-size: 16px;
+  display: flex;
+  }
+  
+  .inputSearch .MuiInput-underline:before {
+    content: none;
+  }
+  .inputSearch .MuiInput-underline:after {
+    content: none;
+  }

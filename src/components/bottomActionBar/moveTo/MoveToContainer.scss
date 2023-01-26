@@ -1,0 +1,162 @@
+.moveToContainer {
+  margin-bottom: 10px;
+  overflow: hidden;
+  overflow-y: hidden;
+  height: inherit;
+  .disableModule{
+    background-color: var(--divider);
+    border-radius: 8px;
+    cursor: default !important; 
+    opacity: 0.5;
+  }
+    .moveToContainer_backIcon{
+      border: 1px solid;
+      border-radius: 50% ;
+      // align-self: baseline;
+      height: 25px;
+      width: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    // .moveToContainer_backIcon_headingText{
+    //   font-size: 12px;
+    //   margin-bottom: 10px;
+    // }
+
+
+  .milestoneNameRow {
+    // border: 1px solid var(--divider);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+
+    .arrowContainer {
+      transition: ease-in-out 0.2s;
+      transform: rotate(0deg);
+    }
+    .arrowContainer_90degree {
+      transform: rotate(90deg);
+    }
+
+    &:hover {
+      background-color: var(--divider);
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    
+  }
+  .selectedModule {
+    background-color: var(--progressBarColor) !important;
+  border-radius: 8px;
+overflow: hidden;
+    
+  }
+  // .moduleMoveTo {
+  //   margin-left: 10px;
+  //   margin-bottom: 40px;
+  //   .moduleRow {
+  //     border: 1px solid var(--divider);
+  //     padding: 10px 20px;
+  //     &:hover {
+  //       background-color: var(--divider);
+  //       cursor: pointer;
+  //     }
+  //   }
+  //   .selectedModule {
+  //     background-color: var(--progressBarColor) !important;
+  //   }
+  // }
+    
+}
+
+
+  .arrowMoveTo {
+    border: 1px solid;
+    align-items: center;
+    display: flex;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+.popoverContainerModuleMoveTo {
+  min-width: 300px;
+  padding: 10px;
+// background-color: rgba(100, 105, 145 , 0.6);
+// background-color: var(--popUpColor);
+  // .searchContainer {
+  //   border: 1px solid var(--divider);
+  //   height: 30px;
+  //   // background-color: var(--blakish);
+  //   display: flex;
+  //   align-items: center;
+  //   margin-bottom: 10px;
+  //   border-radius: 50px;
+  //   overflow: hidden;
+  //   padding: 0px 5px;
+ 
+  //   input {
+  //     border: none;
+  //     height: 100%;
+  //     padding: 0px 5px;
+  //     font-size: 13px;
+  //     &::placeholder {
+  //       color: red;
+  //       opacity: 1; /* Firefox */
+  //     }
+      
+  //     &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  //      color: red;
+  //     }
+      
+  //     &::-ms-input-placeholder { /* Microsoft Edge */
+  //      color: red;
+  //     }
+   
+  //   &::-ms-input-placeholder { /* Microsoft Edge */
+  //       color: red;
+  //      }
+  //   }
+  // }
+
+  .milestoneContainerMoveTo {
+    overflow-y: auto;
+    height: 300px;
+
+    .noMilestoneFound{
+        height: 300px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        font-size: 18px;
+        font-family: "Lato-Bold";
+        p{
+            margin-left: 5px;
+        }
+    }
+  }
+ 
+  .milestoneNameRow {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--divider);
+    padding: 5px 5px;
+    border-radius: 4px;
+
+    &:hover{
+        background-color: var(--blakish);
+        cursor: pointer;
+    }
+    .rotateArrowMoveTo {
+      transform: rotate(270deg);
+      margin-right: 5px;
+    }
+  }
+
+  
+}

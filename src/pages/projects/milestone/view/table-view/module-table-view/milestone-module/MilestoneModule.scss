@@ -1,0 +1,284 @@
+.containerMilestoneView {
+  * {
+    outline: none;
+  }
+  .milestoneSelectRowClassName {
+    border-bottom: 1px solid var(--divider);
+    padding: 10px 5px;
+  }
+  .MuiSelect-select.MuiSelect-select {
+    padding-right: 24px;
+    padding-left: 10px;
+  }
+
+  .milestoneTitle {
+    font-size: 32px;
+    font-family: "Raleway-SemiBold";
+  }
+  .select {
+    /* color: var(--defaultWhite) !important; */
+    border-radius: 30px;
+    height: 100%;
+    border: 1px solid var(--divider);
+    flex: 0.5;
+  }
+
+  .select p {
+    /* opacity: 0.5; */
+    padding-left: 0.6em;
+  }
+
+  .selected p {
+    color: var(--defaultWhite) !important;
+    opacity: 0.5 !important;
+    padding-left: 0.6em;
+  }
+
+  .select::before {
+    border-bottom: none !important;
+    /* background-color: red !important;
+    border-bottom: 0px !important; */
+  }
+  .MuiInput-underline:after {
+    border-bottom: none !important;
+  }
+  .addNewModule {
+    border: 1px dashed var(--divider);
+    padding: 10px 20px;
+    // margin: 10px 0;
+    border-radius: 4px;
+    height: 40px;
+  }
+
+  .addNewModuleRow {
+    height: 40px;
+
+    background-color: var(--milestoneRowAddColor);
+    .sideLine {
+      background-color: var(--lightBlue);
+      height: 40px;
+      width: 8px;
+      transition: ease-in-out 0.2s;
+    }
+    .sideLine:hover {
+      width: 18px;
+    }
+    .inputAdd {
+      height: 40px;
+      flex: 1;
+      padding-left: 10px;
+    }
+    .addButton {
+      width: 80px;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: "Lato-Regular";
+      position: absolute;
+      right: 1px;
+      background: var(--milestoneRowAddColor);
+      height: 38px;
+      top: 1px;
+      border-radius: 0px;
+    }
+  }
+
+  .moduleContainerClose {
+    height: 40px;
+    overflow: hidden;
+  }
+  .moduleContainer {
+    width: 100%;
+    margin-bottom: 30px;
+    transition: ease-in-out 0.2s;
+
+    .moduleContainerTable {
+      width: 100%;
+      table-layout: auto;
+      border-spacing: 1px;
+      tbody {
+        width: 100%;
+      }
+      td {
+        height: 40px;
+      }
+
+      .headerTable,
+      .taskTableRow,
+      .addTaskTableRow {
+        background-color: var(--projectCardBg);
+        border-bottom: 1px solid #191b34;
+        .sideLineNoHover {
+          background-color: var(--lightBlue);
+          height: 40px;
+          width: 8px;
+          transition: ease-in-out 0.2s;
+        }
+        .sideLine {
+          background-color: var(--lightBlue);
+          height: 40px;
+          width: 8px;
+          transition: ease-in-out 0.2s;
+        }
+        .sideLine:hover {
+          width: 18px;
+        }
+      }
+
+      .addTaskTableRow {
+        background-color: var(--milestoneRowAddColor);
+      }
+      .taskTableRow:hover {
+        background-color: var(--divider);
+        cursor: pointer;
+      }
+
+      .headerTable {
+        cursor: pointer;
+        .firstEmptyCell {
+          //   background-color: #191b34;
+          width: 2%;
+        }
+        .titleRow {
+          width: 58%;
+        }
+        .rowPercent {
+          width: 10%;
+          text-align: center;
+        }
+        .arrowContainer {
+          transition: ease-in-out 0.2s;
+          transform: rotate(90deg);
+        }
+        .arrowContainer_90degree {
+          transform: rotate(0deg);
+        }
+      }
+
+      .taskTableRow,
+      .addTaskTableRow {
+        .firstEmptyCell {
+          background-color: #191b34;
+          width: 1.5%;
+          text-align: center;
+        }
+        .titleRow {
+          width: 58%;
+        }
+        .rowPercent {
+          width: 10%;
+          text-align: center;
+        }
+
+        .rowContainer {
+          display: flex;
+          align-items: center;
+          height: 40px;
+        }
+        .inputEdit {
+          height: 40px;
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .errorBoundaryModule {
+    border-color: var(--red);
+  }
+}
+
+.tableRowModule:hover {
+  background-color: var(--divider);
+  cursor: pointer;
+}
+
+.sideLineContainer {
+  width: 12px;
+  transition: ease-in-out 0.2s;
+  &:hover .sideLine {
+    width: 40px;
+  }
+  &:hover{
+    width: 40px;
+  }
+}
+.sideLineContainerNoHover{
+  width: 12px;
+  transition: ease-in-out 0.2s;
+}
+.sideLineContainer_noHover{
+  width: 40px;
+}
+
+.tableRowModule {
+  display: grid;
+  background-color: var(--projectCardBg);
+  height: 40px;
+  grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+  outline: none;
+
+  .firstEmptyCell {
+    background-color: #191b34;
+    width: 15px;
+    text-align: center;
+  }
+  .borderBottom {
+    border-bottom: 1px solid #191b34;
+    height: 40px;
+  }
+  .borderRight {
+    border-color: #191b34;
+    border-right: 1px solid #191b34;
+    border-bottom: 1px solid #191b34;
+    height: 40px;
+    position: relative;
+  }
+  .sideLineNoHover {
+    background-color:#f2983e;
+    height: 40px;
+    width: 5px;
+    overflow:hidden ;
+  }
+  .sideLine {
+    // background-color: var(--lightBlue);
+    // width: 8px;
+    // transition: ease-in-out 0.2s;
+    height: 40px;
+    background: #f2983e;
+    width: 5px;
+    transition: ease-in-out 0.2s;
+    overflow: hidden;
+  }
+  .sideLineSelected {
+    width: 40px;
+    background-color: var(--lightBlue);
+  }
+
+  .sideLine_noHover {
+    background: #f2983e;
+    width: 5px;
+    overflow: hidden;
+  }
+  .sideLine:hover {
+    width: 40px;
+  }
+
+  .rowContainer {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+  .arrowContainer {
+    transition: ease-in-out 0.2s;
+    transform: rotate(90deg);
+  }
+  .arrowContainer_90degree {
+    transform: rotate(0deg);
+  }
+}
+.addRowModule {
+  background-color: var(--milestoneRowAddColor);
+}
+
+

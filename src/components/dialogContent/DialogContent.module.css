@@ -1,0 +1,17 @@
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.dialogContent > * {
+  margin: 0.5em !important;
+  width: 100%;
+}
+
+.btnArea {
+  margin-top: 1.5em !important;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

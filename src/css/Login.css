@@ -1,0 +1,208 @@
+.loginScreen {
+  display: flex;
+  flex-direction: column;
+}
+
+.login_left {
+  display: flex;
+  margin: 2em;
+  /* margin-right: 0; */
+  justify-content: center;
+  z-index: 999;
+}
+
+.login_left > * {
+  flex-basis: 100%;
+}
+
+.logIn {
+  /* background: #191b34; */
+  position: relative;
+  font-family: "Comfortaa-Medium";
+  display: flex;
+  flex-direction: column;
+  max-width: 20em;
+  align-items: center;
+  color: #fff;
+  /* padding: 0 3em; */
+}
+
+.logIn > * {
+  margin: 0.3em 0;
+}
+
+.loginForm h3 {
+  text-align: center;
+  padding: 25px 0px 15px;
+}
+
+.inputField label {
+  color: #fff;
+}
+
+.inputField i {
+  color: #fff;
+}
+
+.inputField {
+  display: flex;
+  justify-content: flex-end;
+  border: 1px solid #57628e;
+  border-left: 5px solid var(--yellow);
+  border-right: 5px solid var(--yellow);
+  border-radius: 8px;
+  margin-top: 20px;
+  background: #1f2640;
+}
+
+.inputInside {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputField i {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #57628e;
+  font-size: 18px;
+}
+
+.inputField label {
+  color: #43c072;
+  border-bottom: 1px solid #57628e;
+  padding: 10px 10px 10px;
+  margin: 0px;
+  font-size: 14px;
+}
+
+.inputInside input {
+  background: none;
+  border: none;
+  padding: 10px 10px 10px;
+  color: #fff;
+}
+
+.inputInside input:focus {
+  outline: none;
+}
+
+.inputInside input::placeholder {
+  color: #fff;
+  font-size: 12px;
+}
+
+.forgotPass {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgotPass button {
+  background: none;
+  border: none;
+  color: #56c5f7;
+  border-left: 1px solid #57628e;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  /* width: 100%; */
+}
+
+.forgotPass button:focus {
+  outline: none;
+}
+
+.loginForm {
+  position: relative;
+  z-index: 2;
+}
+
+.validationError {
+  width: 100% !important;
+  text-align: left !important;
+  margin: 5px auto 5px !important;
+  color: red !important;
+  font-size: 14px !important;
+  position: relative;
+}
+
+.customTable .validationError {
+  margin: 5px 0px 5px 10px !important;
+  font-size: 14px !important;
+}
+
+.workspaceLogo {
+  position: relative;
+  padding: 0.3em 4em;
+  border-bottom: 1px solid var(--divider);
+  display: flex;
+  width: auto;
+  align-items: center;
+  flex-grow: 0;
+  height: 10%;
+}
+
+.inputEl {
+  margin: 0.4em 0;
+  color: var(--defaultWhite);
+  font-size: 0.5em;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.inputField {
+  background-color: transparent;
+  /* width: 70%; */
+  margin: 0.5em 0 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.inputField div {
+  border: none !important;
+  outline: none !important;
+  background-color: var(--defaultWhite);
+}
+
+.inputField div input {
+  padding: 10px;
+  color: var(--defaultBlack);
+  border-radius: 4px;
+}
+
+.inputField div input:focus {
+  /* border: 1px solid black !important;
+  outline: 1px solid black !important; */
+}
+
+.inputField div input::placeholder {
+  color: var(--defaultBlack) !important;
+}
+
+.inputField input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--defaultBlack) !important;
+}
+
+.inputField input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--defaultBlack) !important;
+}
+
+a {
+  color: var(--primary);
+  /* font-size: 0.5em; */
+}
+
+@media (max-width: 700px) {
+  .rightside,
+  .rightBox {
+    display: none;
+  }
+  .logIn {
+    width: 100%;
+  }
+}

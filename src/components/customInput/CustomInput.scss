@@ -1,0 +1,37 @@
+.custom_input_container{
+display: flex;
+height: 40px;
+align-items: center;
+background: #363D68;
+border-radius: 4px;
+padding-left: 5px;
+flex:1;
+
+
+
+    .custom_input{
+    border: none;
+    flex: 1;
+    height: 38px;
+    font-family: 'Lato-Regular';
+background-color: transparent;
+    }
+
+}
+
+.text_area_container{
+    border-radius: 4px;
+    background: #363D68;
+
+    .customTextArea{
+        flex: 1;
+        font-family: 'Lato-Regular';
+        background: #363D68;
+        width: 100%;
+        padding: 10px;
+        outline: 0;
+        color: #FFF;
+        border: none;
+        border-radius: 4px;
+    }
+}

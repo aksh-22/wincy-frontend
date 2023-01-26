@@ -1,0 +1,107 @@
+.tableRow {
+  display: grid;
+  position: relative;
+  grid-template-columns: auto 35% 20% 1fr 1fr;
+  align-items: center;
+  background-color: var(--milestoneRowColor);
+  cursor: pointer;
+  height: auto;
+  padding: 1em;
+  /* padding: 1em; */
+}
+
+.tableRowEl {
+  display: grid;
+  position: relative;
+  grid-template-columns: auto 35% 20% 1fr 1fr;
+  align-items: center;
+  background-color: var(--milestoneRowElColor);
+  margin-left: 1em;
+  border-bottom: 1px solid var(--divider);
+}
+
+.btnWrapper > * {
+  margin: 0;
+  padding: 0 !important;
+}
+
+.icon {
+  position: absolute;
+  left: 0;
+  transition: ease-in-out 0.2s !important;
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 1em;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}
+
+.addRow {
+  background-color: var(--milestoneRowAddColor);
+  margin-left: 1em;
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  /* padding: 0.5em; */
+  height: 35px;
+  align-items: center;
+}
+
+.sideBar {
+  background-color: var(--primary);
+  width: 5px;
+  overflow: hidden;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: left;
+  transition: width 0.2s ease-in-out;
+}
+
+.sideBar > * {
+  /* color: transparent !important; */
+}
+
+.sideBar:hover {
+  /* transform: scaleX(1) !important; */
+  width: 30px !important;
+}
+
+.sideBar:hover > * {
+  color: var(--defaultWhite) !important;
+}
+
+.input {
+}
+
+input[type="text"]::-webkit-input-placeholder {
+  color: var(--defaultWhite) !important;
+}
+
+input[type="text"]:-moz-placeholder {
+  color: var(--defaultWhite) !important;
+}
+
+input[type="text"]::-moz-placeholder {
+  color: var(--defaultWhite) !important;
+}
+
+input[type="text"]:-ms-input-placeholder {
+  color: var(--defaultWhite) !important;
+}
+
+.imagesPreview {
+  width: 80%;
+  height: 10px;
+  margin-left: 0.5em;
+  position: absolute;
+  /* visibility: hidden; */
+  opacity: 0;
+  cursor: pointer;
+}

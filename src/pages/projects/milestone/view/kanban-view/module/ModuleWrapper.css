@@ -1,0 +1,31 @@
+.TaskKanbanTitle {
+  padding: 8px;
+  flex-grow: 1;
+  user-select: none;
+  position: relative;
+}
+
+.Wrapper {
+  background-color: red;
+  /* background-color: ${(props) =>
+      getBackgroundColor(props.isDraggingOver, props.isDraggingFrom)}; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* opacity: ${({ isDropDisabled }) => (isDropDisabled ? 0.5 : 'inherit')}; */
+  padding: 8px;
+  border: 8px;
+  padding-bottom: 0;
+  /* transition: background-color 0.2s ease, opacity 0.1s ease; */
+  user-select: none;
+  /* width: 250px; */
+}
+
+.DropZone {
+  /* stop the list collapsing when empty */
+  min-height: 250px;
+  /*
+    not relying on the items for a margin-bottom
+    as it will collapse when the list is empty
+  */
+  padding-bottom: 8px;
+}

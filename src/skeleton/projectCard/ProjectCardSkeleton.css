@@ -1,0 +1,15 @@
+.projectCard_skelton {
+  background: #1f2640;
+
+  border-radius: 4px;
+  padding: 16px;
+  border: 1px solid #475177;
+}
+
+.projectCard_skelton .ellipse_variant{
+  width: 52px;
+    border-radius: 18px;
+    height: 18px;
+    height: 27px;
+    margin-right: 10px;
+}

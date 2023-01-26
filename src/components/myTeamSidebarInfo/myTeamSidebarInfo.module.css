@@ -1,0 +1,52 @@
+.myTeamSidebarInfo {
+  width: 100%;
+  /* height: 1em; */
+}
+
+.myTeamSidebarInfoHead {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 2em;
+}
+
+.myTeamSidebarInfoHeadEL {
+  display: flex;
+  align-items: center;
+}
+
+.myTeamSidebarInfoHeadEL > * {
+  font-size: 1.5em;
+  margin: 0.3em 0;
+  margin-right: 0.3em;
+}
+
+.btnArea {
+  margin: 2em;
+}
+
+.details {
+  margin: 2em;
+  font-size: 15px;
+  padding: 0;
+}
+
+.table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+  border: 0.5px solid var(--paleBlack);
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.table > * {
+  border: 0.5px solid var(--paleBlack);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 100%;
+  max-width: 50%;
+  height: 80px;
+}

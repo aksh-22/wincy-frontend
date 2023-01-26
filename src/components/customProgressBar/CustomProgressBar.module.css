@@ -1,0 +1,16 @@
+.projectBox__progress {
+  display: flex;
+  align-items: center;
+}
+
+.projectBox__progress > * {
+  margin-right: 1em;
+}
+
+.projectBox__progress__progressBar {
+  width: 100%;
+  transition: all 0.7s ease-out;
+  border-radius: 10px;
+  height: 0.5em;
+}
+

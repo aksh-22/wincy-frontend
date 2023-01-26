@@ -1,0 +1,119 @@
+.create_invoice_container {
+  .invoice_container {
+    border: 1px solid #373f70;
+    padding: 20px;
+    border-radius: 21px;
+    margin: 30px 0;
+  }
+
+  .create_invoice_heading {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .invoice_number { 
+    display: flex;
+    height: 40px;
+    // background: var(--blakish);
+    background-color: #363D68;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 40px;
+    flex: 1;
+    .invoice_number_back {
+      background-color: #625df5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+    input {
+      border: none;
+      padding: 10px;
+      background-color: #363D68;
+    }
+  }
+
+  .invoice_service_container{
+    border-bottom: 1px solid #373f70;
+    padding-bottom: 20px;
+    .invoice_service_header{
+      display: grid;
+      grid-template-columns:1.1fr 0.2fr 0.2fr 0.2fr;
+      font-size: 16px;
+      font-family: "Lato-Bold";
+      margin: 10px 0;
+    }
+  
+    .textCenter{
+      text-align: center;
+    }
+  
+    .invoice_service_row{
+      grid-template-columns: 1fr 0.1fr 0.1fr 0.1fr;
+      font-size: 16px;
+      font-family: "Lato-Bold";
+      margin: 20px 0;
+      display: grid;
+  
+    }
+  }
+  
+  .invoiceTotal{
+    border-bottom: 1px solid #373f70;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  
+  .amountText{
+    font-size: 20px;
+text-align: start;
+font-family: 'Lato-Bold';
+flex: 1;
+}
+
+}
+.SelectCustomerPopup_container{
+  color: #FFF;
+  width: 20vw;
+
+  .customerList{
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+
+  .customerName{
+    padding: 15px 20px;
+    font-size: 13px;
+    &:hover{
+      background-color: #373f70;
+      cursor: pointer;
+    }
+  }
+
+}
+
+.selectMilestonePopup_container{
+  color: #FFF;
+  width: 20vw;
+  background-color:#2F3453;
+
+  .milestonePopup__list{
+    max-height: 350px;
+    overflow-y: auto;
+    .milestonePopup__row{
+      padding: 15px 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      &:hover{
+        background-color: #373f70;
+        cursor: pointer;
+      }
+  
+    }
+  }
+}

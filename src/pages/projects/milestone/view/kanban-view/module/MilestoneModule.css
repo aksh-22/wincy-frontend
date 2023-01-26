@@ -1,0 +1,18 @@
+.milestoneModule {
+  /* background-color: var(--proje  ctCardBg); */
+  margin: 5px;
+  max-width: 320px;
+  min-width: 320px;
+  padding: 10px;
+  /* border: var(--borderWidth) solid #0ff0fc; */
+  /* border-radius: var(--borderRadius); */
+}
+
+.moduleTitle {
+  color: 'white';
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 10px;
+  /* margin-bottom: 200px; */
+  /* max-height: 50px; */
+}

@@ -1,0 +1,26 @@
+.editor {
+  transform-origin: top;
+  animation: scale 0.3s linear;
+  position: relative;
+}
+
+.htmlText li {
+  margin-left: 1em;
+}
+
+.editor input {
+}
+
+@keyframes scale {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+
+.j_editor ul , ol{
+padding-left:  20px;
+}

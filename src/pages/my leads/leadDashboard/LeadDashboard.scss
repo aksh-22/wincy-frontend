@@ -1,0 +1,114 @@
+.leadDashboard {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.leftSec {
+    width: 63%;
+}
+.rightSec {
+    width: calc(37% - 25px)
+}
+.cardBg{
+    background: var(--projectCardBg);
+    padding: 20px 20px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    
+}
+.bxOne {
+    padding: 50px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.totalLeads {
+    background: #191b34;
+    padding: 20px;
+    border-radius: 8px;
+    width: 48%;
+    margin-right: 4%;
+}
+.paidLeads {
+    background: #191b34;
+    padding: 20px;
+    border-radius: 8px;
+    width: 48%;
+}
+.icnImg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.icnImg span {
+    font-size: 32px;
+    color: #ffb300;
+}
+.paidLeads .icnImg span {
+    color: #2cde56;
+}
+.totalLeads p {
+    font-size: 16px;
+}
+.paidLeads p {
+    font-size: 16px;
+}
+.icnImg img {
+    width: 80px;
+}
+.fontWeightNormal{
+    font-weight: normal;
+}
+.offWhite{
+    color: #bfbfbf;
+}
+.customTable {
+    width: 100%;
+    margin-top: 15px;
+}
+.customTable thead tr th {
+    text-align: left;
+    padding: 10px 0px;
+    font-weight: normal;
+    color: #bfbfbf;
+    font-size: 14px;
+}
+.customTable tbody tr td {
+    padding: 10px 0px;
+    border-bottom:1px dashed #737373;
+}
+.customTable tbody tr:last-child td{
+    border-bottom: none;
+}
+.customFilter span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #bfbfbf;
+}
+.customFilter {
+    display: flex;
+    width: 235px;
+    justify-content: space-between;
+    border: 1px solid #bfbfbf;
+    padding: 4px 6px 4px;
+    border-radius: 5px;
+    margin: 15px 25px 40px 10px;
+}
+
+// .NewProgressBar .__customProgressBar{
+//     height: 10px;
+// }
+// .prog1 .__customProgressBar{
+//     background:linear-gradient(to right, #007cff 65%,#1f254b 0%) !important;
+// }
+// .prog2 .__customProgressBar{
+//     background:linear-gradient(to right, #c83b77 45%,#1f254b 0%) !important;
+// }
+// .prog3 .__customProgressBar{
+//     background:linear-gradient(to right, #f4822c 15%,#1f254b 0%) !important;
+// }
+
+.NewProgressBar {
+    margin-bottom: 10px;
+}

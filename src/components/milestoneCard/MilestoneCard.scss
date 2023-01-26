@@ -1,0 +1,38 @@
+.milestoneCard {
+  padding: 10px;
+  background-color: var(--milestoneCard);
+  margin-bottom: 10px;
+  border-radius: 5px;
+  .milstoneName {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+  .milestoneCard_footer {
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .milestoneCard_footer__left {
+    display: flex;
+    align-items: center;
+  }
+  .dateContainer {
+    background-color: var(--chipPink);
+    padding: 2px 5px;
+
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .dateText {
+    font-size: 10px;
+    margin-left: 3;
+  }
+  .milestoneCard_footer__right {
+    display: flex;
+  }
+  .commonFontSize {
+    font-size: 10px;
+  }
+}

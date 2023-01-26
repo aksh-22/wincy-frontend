@@ -1,0 +1,138 @@
+.imagePlaceHolder {
+  background-color: var(--logo);
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 0.6em;
+}
+.projectHead{
+  border:2px solid var(--defaultWhite)
+}
+.projectManagerIcon{
+  transition: ease-in-out 0.4s;
+}
+.projectManagerIcon:hover {
+  background: var(--milestoneRowAddColor);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.imageAvatar {
+  height: 25px;
+  width: 25px;
+  object-fit: cover;
+  border-radius: 50%;
+  /* box-shadow: 0px 0px 17px rgb(0 0 0 / 80%); */
+}
+
+.imageAvatarChip , .imagePlaceHolderChip{
+ 
+  height: 18px;
+  width: 18px;
+  font-size: 0.625rem;
+  margin-left: 4px;
+  margin-right: -4px;
+}
+
+.projectHeadIcon{
+  height: 16px;
+  width: 16px;
+  font-size: 0.625rem;
+}
+
+.inputSearch{
+    width: 100%;
+}
+
+.inputSearch > div:first-child {
+  /* padding: 5px 10px 10px; */
+  border-color: var(--divider);
+  border: none !important;
+}
+.inputSearch .MuiInput-underline:before {
+  content: none;
+}
+.inputSearch .MuiInput-underline:after {
+  content: none;
+}
+.inputSearch * input {
+  padding: 0;
+  color: #FFF;
+  font-size: 13px;
+}
+.inputSearch * ::placeholder {
+  color: #efefefdc !important;
+  opacity: 1 !important;
+  /* font-size: 13px; */
+}
+.peopleText {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--divider);
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  padding: 0 20px;
+}
+.peopleText span {
+  background: var(--popUpColor);
+  padding: 0 10px;
+  color: #fff;
+  font-size: 13px;
+}
+.assigneeName {
+}
+
+
+.assigneeRowContainer {
+  padding: 5px 10px;
+  color: #fff;
+}
+.assigneeRowContainer:hover {
+  background-color: var(--skyBlue);
+  cursor: pointer;
+  color: #fff;
+}
+
+.paperClassNameAssignee{
+  min-width: 250px;
+}
+
+
+.plusCircleColor{
+  background: var(--progressBarColor);
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  z-index: 1;
+}
+
+.assigneeAvatar{
+  /* height: 30px;
+    width: 30px;
+    object-fit: cover;
+    z-index: 8;
+    margin-left: 0px;
+    background-color: var(--newBlue);
+    border: 2px solid var(--progressBarBgColor); */
+    transition-property: width, height, background-color;
+    transition-duration: 0.5s;
+    /* margin-left: -8px !important; */
+}
+.assigneeAvatar:hover{
+  height: 45px !important;
+  width: 45px !important;
+  z-index: 9999999999;
+}
+
+
+.assigneePopover .MuiIconButton-root:hover {
+  background-color: rgba(0, 0, 0, 0);
+}

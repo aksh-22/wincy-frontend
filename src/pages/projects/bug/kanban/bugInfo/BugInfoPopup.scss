@@ -1,0 +1,104 @@
+.bugInfoPopup{
+
+    .bugInfoPopup_title{
+
+        padding-left: 10px;
+        font-size: 18px;
+        font-family: 'Lato-Regular';
+    
+    }
+
+    .bugInfoPopup_textArea  {
+        background: #0000;
+        border-radius: 3px;
+        box-shadow: none;
+        font-size: 20px;
+        font-weight: 600;
+        height: 32px;
+        line-height: 24px;
+        margin: -4px -8px;
+        min-height: 24px;
+        padding: 4px 8px;
+        resize: none;
+    }
+
+    .bugInfoPopup_actionButton{
+        background-color: #171b34;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    height: 40px;
+    }
+
+    .bugInfoPopup_statusColor{
+        height: 40px;
+    min-width: 150px;
+    margin-right: 20px;
+    }
+
+    .bugInfoPopup_attachment{
+        border-radius: 4px;
+    height: 80px;
+    width: 112px;
+    border: 1px solid var(--divider);
+    overflow: hidden;
+    }
+
+
+    .bugCommentPopup_comment-frame {
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
+        // margin: 4px 4px 12px 0;
+        overflow: hidden;
+        position: relative;
+        // transition: box-shadow 85ms ease;
+        height: 40px;
+      transition: ease-in-out 0.2s;
+
+    }
+    .bugCommentPopup_comment-box {
+        padding:  12px;
+        position: relative;
+        transition-duration: 85ms;
+        transition-property: padding-bottom;
+        transition-timing-function: ease;
+    }
+
+    .bugCommentPopup_comment-box-input {
+        background: #fff!important;
+        box-shadow: none;
+        box-sizing: initial;
+        // height: 20px;
+        margin: 0;
+        // min-height: 20px;
+        padding: 0;
+        resize: none;
+        width: 100%;
+    }
+
+    // .comment-box-input:focus {
+    //     .comment-frame  {
+    //         height: 140px !important;
+    //     }
+       
+    // }
+
+  
+    .bugCommentPopup_comment-box-input, .bugCommentPopup_comment-box-input:active, .bugCommentPopup_comment-box-input:focus, .bugCommentPopup_comment-box-input:hover {
+        border: 0;
+        box-shadow: none;
+        outline: 0;
+    }
+
+    // .new-comment:not(.is-focused):not(.is-show-controls) .comment-box-input {
+    //     margin: -8px -12px;
+    //     padding: 8px 12px;
+    // }
+
+    // .new-comment.is-focused .comment-frame {
+    //     box-shadow: 0 4px 8px -2px #091e4240, 0 0 0 1px #091e4214;
+    // }
+
+}

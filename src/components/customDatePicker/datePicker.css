@@ -1,0 +1,250 @@
+.customDatePickerA {
+  /* position: absolute; */
+  width: 300px;
+  top: 30px;
+  left: 0;
+  z-index: 1000;
+  border-radius: 4px;
+}
+.customDatePicker {
+  /* z-index: 1000; */
+  position: relative;
+  height: inherit;
+  width: inherit;
+  overflow: visible;
+  /* height: 100%; */
+}
+
+.customDatePicker button {
+  color: #fff;
+}
+
+.customDatePicker .react-calendar {
+  max-width: 100%;
+  color: #fff;
+  line-height: 1.125em;
+  background-color: var(--popUpColor);
+  box-shadow: -9px 18px 14px -9px rgba(0,0,0,0.64);
+  padding: 10px;
+}
+.customDatePicker .react-calendar--doubleView {
+  width: 700px;
+}
+.customDatePicker
+  .react-calendar--doubleView
+  .customDatePicker
+  .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.customDatePicker
+  .react-calendar--doubleView
+  .customDatePicker
+  .react-calendar__viewContainer
+  > * {
+  width: 50%;
+  margin: 0.5em;
+}
+.customDatePicker .react-calendar,
+.customDatePicker .react-calendar *,
+.customDatePicker .react-calendar *:before,
+.customDatePicker .react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.customDatePicker .react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+.customDatePicker .react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+.customDatePicker .react-calendar__navigation {
+  height: 44px;
+  margin-bottom: 1em;
+}
+.customDatePicker .react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+}
+.customDatePicker .react-calendar__navigation button:enabled:hover,
+.customDatePicker .react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e681;
+}
+.customDatePicker .react-calendar__navigation button[disabled] {
+  color: var(--divider);
+}
+.customDatePicker .react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+.customDatePicker .react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+.customDatePicker .react-calendar__month-view__weekNumbers {
+  font-weight: bold;
+}
+.customDatePicker
+  .react-calendar__month-view__weekNumbers
+  .customDatePicker
+  .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  padding: calc(0.75em / 0.75) calc(0.5em / 0.75);
+}
+.customDatePicker .react-calendar__month-view__days__day--weekend {
+  /* color: #d10000; */
+}
+.customDatePicker .react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+}
+.customDatePicker
+  .react-calendar__year-view
+  .customDatePicker
+  .react-calendar__tile,
+.customDatePicker
+  .react-calendar__decade-view
+  .customDatePicker
+  .react-calendar__tile,
+.customDatePicker
+  .react-calendar__century-view
+  .customDatePicker
+  .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+.customDatePicker .react-calendar__tile {
+  max-width: 100%;
+  text-align: center;
+  padding: 0.75em 0.5em;
+  background: none;
+}
+.customDatePicker .react-calendar__tile:disabled {
+  color: var(--divider);
+}
+.customDatePicker .react-calendar__tile:enabled:hover,
+.customDatePicker .react-calendar__tile:enabled:focus {
+  background: var(--progressBarColor);
+  border-radius: 50%;
+}
+/* .customDatePicker .react-calendar__tile--now {
+  background: var(--primary);
+  border-radius: 50%;
+} */
+/* .customDatePicker .react-calendar__tile--now {
+  background: var(--primary);
+  border-radius: 50%;
+} */
+.customDatePicker .react-calendar__month-view .react-calendar__tile--now {
+  background: var(--primary);
+  border-radius: 50%;
+}
+.customDatePicker .react-calendar__year-view__months .react-calendar__tile--now {
+  background: #f34239;
+}
+
+.customDatePicker .react-calendar__year-view__months__month , .react-calendar__decade-view__years__year , .react-calendar__century-view__decades__decade{
+  border-radius: 0% !important; 
+}
+
+.customDatePicker .react-calendar__decade-view__years .react-calendar__tile--now {
+  background: #f34239;
+}
+.customDatePicker .react-calendar__tile--now:enabled:hover,
+.customDatePicker .react-calendar__tile--now:enabled:focus {
+  background: var(--progressBarColor);
+  border-radius: 50%;
+}
+.customDatePicker .react-calendar__tile--hasActive {
+  background: var(--progressBarColor);
+}
+.customDatePicker .react-calendar__tile--hasActive:enabled:hover,
+.customDatePicker .react-calendar__tile--hasActive:enabled:focus {
+  /* background: #a9d4ff; */
+  border-radius: 0%;
+}
+.customDatePicker .react-calendar__tile--active {
+  background: var(--progressBarColor);
+  color: white;
+  border-radius: 50%;
+}
+.customDatePicker .react-calendar__tile--active:enabled:hover,
+.customDatePicker .react-calendar__tile--active:enabled:focus {
+  background: var(--progressBarColor);
+  border-radius: 50%;
+}
+.customDatePicker
+  .react-calendar--selectRange
+  .customDatePicker
+  .react-calendar__tile--hover {
+  background-color: #e6e6e6;
+  border-radius: 50%;
+}
+
+
+.customDatePicker .rdrStaticRange,.rdrDateDisplayWrapper{
+  background: var(--popUpColor);
+}
+
+.customDatePicker .rdrDateDisplayWrapper,.rdrInputRanges  {
+  background: var(--popUpColor);
+}
+
+.customDatePicker .rdrDateRangeWrapper , .rdrDefinedRangesWrapper{
+  background: var(--popUpColor) !important;
+}
+
+.customDatePicker .rdrStaticRange:hover .rdrStaticRange{
+  background-color: var(--progressBarColor);
+}
+.customDatePicker .rdrStaticRange:hover .rdrStaticRangeLabel, .rdrStaticRange:focus .rdrStaticRangeLabel{
+  background-color: var(--progressBarColor) ;
+
+}
+
+.customDatePicker .rdrDayPassive .rdrDayNumber span {
+  color: #d5dce070;
+}
+.customDatePicker .rdrDayNumber span {
+  color: #FFF;
+}
+
+.customDatePicker .rdrMonthAndYearPickers select{
+  color:#FFF
+}
+
+.customDatePicker .rdrMonthPicker select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: #000;
+  pointer-events: none;
+}
+
+.customDatePicker .rdrMonthAndYearPickers select{
+  background-color: var(--popUpColor);
+  font-family: "Lato-Regular";
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.customDatePicker .rdrStaticRange{
+  border-bottom: 0px;
+}
+
+.customDatePicker .rdrDefinedRangesWrapper{
+  border-right: solid 1px #eff2f76e;
+  width: 166px;
+  font-family: "Lato-Regular";
+}

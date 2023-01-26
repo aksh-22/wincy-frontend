@@ -1,0 +1,14 @@
+.join {
+  color: #fff;
+  padding: 3em;
+}
+
+.inputArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputArea > * {
+  margin: 0.5em !important;
+}

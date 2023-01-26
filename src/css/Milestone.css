@@ -1,0 +1,369 @@
+.milestone,
+.milestone_skeleton {
+  border: 1px solid #343760;
+  height: 30px;
+  cursor: pointer;
+}
+
+.milestoneContainer {
+  height: 40px;
+
+  transition: ease-in-out 0.2s !important;
+}
+
+.milestone:hover {
+  background-color: #343760 !important;
+}
+.activeABC .subMilestone_row {
+  height: 35px;
+  animation: collapsible 0.2s linear;
+  opacity: 1;
+}
+@keyframes collapsible {
+  0% {
+    height: 0px;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 45px;
+  }
+}
+/* @keyframes collapsible_out {
+    0% {
+      height: 45px;
+      opacity: 1;
+    }
+    100% {
+      height: 0px;
+      opacity: 0;
+    }
+  } */
+.milestone_arrowContainer {
+  position: absolute;
+  left: 0;
+  transform: translate(0%, -50%) rotate(0deg);
+  transition: ease-in-out 0.2s !important;
+}
+
+.milestone_arrowContainer_90degree {
+  transform: translate(0%, -50%) rotate(90deg);
+}
+
+.subMilestone_sideLine {
+  background: #f2983e;
+  width: 5px;
+  transition: ease-in-out 0.2s;
+  overflow: hidden;
+  height: 35px;
+}
+.subMilestone_sideLine_noHover {
+  background: #f2983e;
+  width: 5px;
+  overflow: hidden;
+}
+.subMilestone_sideLine:hover {
+  /* background: #f2983e; */
+  width: 40px;
+  margin-right: 10px;
+}
+
+.rowSelected {
+  width: 40px;
+  background-color: var(--lightBlue) !important;
+  margin-right: 10px;
+}
+
+.subMilestone_row {
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  height: 30px;
+  opacity: 0;
+  /* border-bottom: 3px solid #12152b; */
+  background: #28304c;
+}
+
+.subMilestone_title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.milestone_cell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cellWidth {
+  width: 120px;
+}
+
+.milestone_input {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  color: #fff;
+  border: 1px solid;
+  border-style: dashed;
+  width: 100%;
+}
+
+.milestone_input_text {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+}
+.milestone_input_text::placeholder {
+  color: #fff;
+  opacity: 1; /* Firefox */
+}
+
+.milestone_borderRight {
+  border-right: 1px solid #343760;
+}
+
+.milestone_borderBottom {
+  border-bottom: 1px solid #343760;
+}
+
+.milestone_info_icon_custom {
+  width: 22px;
+  font-size: 24px;
+  fill: #fff;
+}
+
+.addButton_milestone_add_width {
+  width: 60px !important;
+}
+
+.addButton_milestone {
+  background-color: #4074ea;
+  width: 0px;
+  overflow: hidden;
+  transition: ease-in-out 0.3s;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.milestoneTitleEllipse {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 360px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .milestoneContainer {
+    width: 90vw;
+    overflow: auto;
+  }
+  .milestone,
+  .subMilestone_row {
+    width: 650px;
+  }
+  .milestone {
+    width: 670px;
+  }
+  .milestoneTitleEllipse {
+    max-width: 240px;
+  }
+}
+.addBorder {
+  border-color: var(--lightBlue) !important;
+}
+.rowSideBarBg {
+  background-color: var(--lightBlue) !important;
+}
+
+input {
+  flex: 1 1;
+  background: var(--blakish);
+  color: var(--defaultWhite);
+  outline: 0;
+  height: 100%;
+  border: 1px solid var(--lightBlue);
+  font-size: 14px;
+  /* border-radius: 4px; */
+}
+input {
+  caret-color: var(--primary);
+}
+
+.inputActiveDiv {
+  background-color: #343760;
+  height: 100%;
+}
+
+.disableField {
+  opacity: 0.3 !important;
+}
+
+.borderChangeOnEdit {
+  border: 1px solid var(--lightBlue) !important;
+}
+
+.backgroundChangeOnEdit {
+  background-color: var(--lightBlue) !important;
+}
+
+.backgroundInputChangeOnEdit {
+  background-color: var(--blakish) !important;
+}
+
+.completedBackground {
+  background-color: green !important;
+}
+
+.progress {
+  width: 200px;
+  height: 200px;
+  font-size: 30px;
+  color: #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: #07070c;
+  text-align: center;
+  line-height: 200px;
+  margin: 20px;
+}
+
+.progress::after {
+  content: "%";
+}
+
+.progress .title {
+  position: relative;
+  z-index: 100;
+}
+
+.progress .overlay {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #07070c;
+}
+
+.progress .left,
+.progress .right {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 10px solid #222235;
+  border-radius: 100px 0px 0px 100px;
+  border-right: 0;
+  transform-origin: right;
+}
+
+.progress .left {
+  animation: load1 1s linear forwards;
+}
+
+.progress:nth-of-type(2) .right,
+.progress:nth-of-type(3) .right {
+  animation: load2 0.5s linear forwards 1s;
+}
+
+.progress:last-of-type .right,
+.progress:first-of-type .right {
+  animation: load3 0.8s linear forwards 1s;
+}
+
+@keyframes load1 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes load2 {
+  0% {
+    z-index: 100;
+    transform: rotate(180deg);
+  }
+
+  100% {
+    z-index: 100;
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes load3 {
+  0% {
+    z-index: 100;
+    transform: rotate(180deg);
+  }
+
+  100% {
+    z-index: 100;
+    transform: rotate(315deg);
+  }
+}
+
+/* .divider {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  background-color: #fff;
+  color: red;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  background-color: red;
+  left: 0;
+} */
+
+.dividerClass {
+  display: flex;
+  align-items: flex-end;
+  margin: 2em 0 3em 0;
+  position: relative;
+}
+
+.dividerClass .text {
+  /* padding-right: 0.3em;
+  text-transform: uppercase;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 1em;
+  background-color: #191b34;
+  font-size: 1.3em;
+  z-index: 100; */
+  padding-right: 0.3em;
+  text-transform: uppercase;
+  position: absolute;
+  left: 3%;
+  top: 50%;
+  transform: translateY( -50%);
+  padding: 0 1em;
+  background-color: #191b34;
+  font-size: 15px;
+  z-index: 100;
+  /* color: gray; */
+}
+
+.dividerClass hr {
+  border-style: solid;
+  stroke-dasharray: 6 14;
+  stroke-dashoffset: 1000;
+  stroke-width: 20px;
+  opacity: 0.2;
+}

@@ -1,0 +1,119 @@
+.tableContainer {
+  /* background-color:  var(--newBlueLight); */
+}
+
+.fieldTitle {
+  flex: 0.3;
+  border: 1px solid rgba(239, 239, 239, 0.1);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-right: none;
+}
+
+.fieldValue {
+  border: 1px solid rgba(239, 239, 239, 0.1);
+  flex: 0.7;
+  display: flex;
+  align-items: center;
+}
+.borderZero {
+  border-bottom: none;
+}
+
+.scrollModule {
+  /* height: 80vh;
+  overflow-y: auto; */
+}
+
+.displayInitial {
+  display: initial;
+}
+
+.ManageButtonCss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--divider);
+  padding: 5px 0px;
+  cursor: pointer;
+  margin: 10px 0px;
+  transition: ease-in-out 0.2s;
+  background-color: var(--progressBarColor);
+}
+
+.ManageButtonCss:hover {
+  background-color: rgba(98 93 245, 0.1);
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+}
+
+.sidebarHeader > * {
+  margin: 0 !important;
+}
+
+.avatar {
+  font-size: 3em !important;
+  border: 2px solid var(--divider);
+  border-radius: 50% !important;
+  width: 64px !important;
+  height: 64px !important;
+}
+
+.blockSensitive {
+  border: 1px solid var(--divider);
+  padding: 10px 0px 10px 5px;
+  background: #2d3463;
+}
+
+.dateTypeDropDown input {
+  border: none !important;
+  padding-left: 10px;
+}
+.dateTypeDropDown select {
+    background: #625df5;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    outline: none;
+    -moz-appearance: none; 
+	-webkit-appearance: none; 
+}
+
+.dateTypeDropDown select option {
+  padding: 20px 20px;
+}
+
+.dateTypeDropDown select option:hover {
+  background-color: #fff;
+}
+
+.dateTypeDropDown select option:hover {
+  box-shadow: 0 0 10px 100px #1882A8 inset;
+}
+
+.autoCompletePaper{
+  background-color: var(--projectCardBg) !important;
+}
+.autoCompleteClearIndicator{
+  color:#FFF !important;
+}
+
+.autoCompleteNoOptions{
+  font-family: "Lato-Regular" !important;
+  font-size:14px !important;
+}
+.autoCompleteOptions{
+  color: #FFF !important;
+}
+.autoCompletePopupIndicator{
+  color :#FFF !important;
+
+  font-family: "Lato-Regular" !important;
+  font-size:14px !important;
+}

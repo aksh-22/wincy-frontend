@@ -1,0 +1,95 @@
+.avatar {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userImg {
+  /* width: 5em;
+  height: 5em; */
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.icon {
+  position: absolute;
+  /* bottom: -10%;
+  right: -10%; */
+}
+
+.input {
+  display: none;
+}
+
+.camera {
+  /* box-shadow: 1px 0px 77px 1px var(--defaultWhite);
+  border-radius: 50%; */
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* left: 0;
+  top: 0;
+  position: absolute; */
+}
+
+.iconWrapper > * {
+  /* right: 0; */
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.edit {
+  transform: rotate(90deg);
+}
+.add {
+  display: none;
+  /* transform: translateX(-20px); */
+  /* animation: shiftLeft 0.15s ease-in; */
+}
+.delete {
+  display: none;
+  transform: translateX(35px);
+  animation: shiftRight 0.15s ease-in;
+}
+
+.edit:hover ~ .add {
+  display: block;
+}
+
+.iconWrapper:hover .edit {
+  display: none;
+}
+
+.iconWrapper:hover .add,
+.iconWrapper:hover .delete {
+  display: block;
+}
+
+/* .edit:hover + .add {
+  display: block;
+} */
+
+@keyframes shiftLeft {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes shiftRight {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(35px);
+  }
+}

@@ -1,0 +1,80 @@
+.project_activity_row{
+    background-color: #1E2344;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+
+    .spanBox {
+        background:#171b34;
+        margin-right: 10px;
+        padding:2px 10px 2px;
+        font-size: 18px;
+        color: var(--primary);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .spanBox span {
+        display: inherit;
+        font-size: 12px;
+        color: var(--primary);
+    }
+    .activityListIcn h3 {
+        font-weight: 500;
+    }
+    .activityListIcn p {
+        color: #9ca2cb;
+    }
+
+
+    .userName_activity{
+        font-size: 11px;
+    color: var(--progressBarColor);
+    }
+
+    .activityName_activity{
+        font-family: "Lato-Bold";
+    }
+}
+
+.line-vertical {
+    width: 3.8px; /* line-width */
+    height: 10px; /* line length */
+    margin: 15px 30px;
+    // margin-left: 20px;
+    // margin-top: 35px;
+    // float: left;
+}
+.line-vertical, .line-horizontal {
+    position: relative;
+    background: var(--progressBarColor);
+}
+.arrow-up:after,
+.arrow-down:before,
+.arrow-left:after,
+.arrow-right:before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border: 14px solid transparent;
+}
+/* vertical arrows */
+.arrow-up:after,
+.arrow-down:before {
+    left: -2px;
+}
+.arrow-up:after {
+    top: -7px;
+    border: 4px solid var(--progressBarColor);
+    border-radius: 50%;
+    background: var(--progressBarColor);
+}
+.arrow-down:before {
+    bottom: -7px;
+    border: 4px solid var(--progressBarColor);
+    border-radius: 50%;
+    background: var(--progressBarColor);    
+}

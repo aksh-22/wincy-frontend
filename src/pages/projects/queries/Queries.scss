@@ -1,0 +1,140 @@
+.queryContainer {
+  background-color: #24294d;
+  border-radius: 6px;
+  padding: 20px;
+
+  hr {
+    margin: 20px 0;
+    height: 1px;
+    border-width: 0;
+    color: #636781;
+    background-color: #636781;
+  }
+}
+
+.query_row {
+  display: flex;
+  cursor: pointer;
+  .query_row_createdBy_name,
+  .query_row_creation_date {
+    color: #a4a8c2;
+    font-size: 12px;
+  }
+
+  // .query_row_creation_date{
+  //     color: #A4A8C2;
+  //     font-size: 13px;
+
+  // }
+  .query_row_question {
+    font-size: 16px;
+    font-family: "Lato-Bold";
+  }
+  .query_row_description {
+    font-size: 16px;
+  }
+}
+
+.queriesThread {
+  padding-bottom: 80px;
+  .replies_section {
+    position: relative;
+    border-bottom: 1px solid var(--chipYellow);
+    margin: 40px 0;
+    .replies {
+      position: absolute;
+      top: -10px;
+      left: 0px;
+      background-color: #171b34;
+      min-width: 70px;
+      color: var(--chipYellow);
+      text-align: center;
+    }
+  }
+
+  .queriesThread_reply_input {
+    background-color: #2a3057;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+
+    border-radius: 4px 4px 0;
+    transition: ease-in-out 0.2s;
+
+    textarea {
+      background-color: transparent;
+      height: 100%;
+      border: none;
+      outline: 0;
+      color: #fff;
+      font-family: "Lato-Regular";
+      padding: 5px;
+    }
+    .input_sendIcon {
+      background-color: var(--progressBarColor);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      margin: 0px 10px;
+    }
+  }
+}
+
+.queryRow_reply_container {
+  .query_row_reply_createdBy_name {
+    font-family: "Lato-Bold";
+    font-size: 16px;
+  }
+  .query_row_reply_creation_date,
+  .query_row_reply_description {
+    color: #686868;
+    font-size: 13px;
+  }
+  .queryRow_reply_hr {
+    margin: 20px 0;
+    height: 1px;
+    border-width: 0;
+    color: #636781;
+    background-color: #636781;
+  }
+}
+
+.addQuery_container {
+  display: flex;
+  flex-direction: column;
+  font-family: "Lato-Regular";
+
+  input {
+    background-color: #222955;
+    min-height: 40px;
+    border: 0;
+    border-radius: 4px;
+    padding: 5px;
+    outline: 0;
+    color: #fff;
+    margin-bottom: 10px;
+    font-family: "Lato-Regular";
+    font-size: 16px;
+    ::placeholder{
+    font-size: 16px;
+    }
+  }
+  textarea {
+    background-color: #222955;
+    margin: 10px 0;
+    border: 0;
+    border-radius: 4px;
+    height: 80px;
+    padding: 5px;
+    outline: 0;
+    color: #fff;
+    font-family: "Lato-Regular";
+    font-size: 16px;
+  }
+}
