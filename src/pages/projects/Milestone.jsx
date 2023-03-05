@@ -92,7 +92,7 @@ const Milestone = ({ viewType, filter, clearFilter }) => {
       milestoneId,
       onToggle: onCloseBottomBar,
     };
-    if (Object.keys(isSubTaskSelected).length) {
+    if (Object?.keys(isSubTaskSelected ?? {})?.length) {
       let tasksIds = [];
       for (const property in isSubTaskSelected) {
         tasksIds = [...tasksIds, ...isSubTaskSelected?.[property]];
@@ -122,7 +122,7 @@ const Milestone = ({ viewType, filter, clearFilter }) => {
     isSubTaskSelected,
   ]);
   // Tasks Delete
-  const { deleteTaskMutate } = useDeleteTask();
+  const { deleteTaskMutate, isLoading: deleteTaskLoading } = useDeleteTask();
   // const [timer, setTimer] = useState(0)
   // React.useEffect(() => {
   // setInterval(() => {
@@ -158,11 +158,13 @@ const Milestone = ({ viewType, filter, clearFilter }) => {
         onClose={onCloseBottomBar}
         isSelected={selectedTask}
         isOpen={
-          Object.keys(isSubTaskSelected).length ? true : !!selectedTask?.length
+          isSubTaskSelected && Object.keys(isSubTaskSelected).length
+            ? true
+            : !!selectedTask?.length
         }
         subTask={isSubTaskSelected}
         type={
-          Object.keys(isSubTaskSelected).length
+          isSubTaskSelected && Object.keys(isSubTaskSelected).length
             ? "subTask"
             : isModuleSelected?.length
             ? "module"
@@ -176,6 +178,7 @@ const Milestone = ({ viewType, filter, clearFilter }) => {
         mutate={
           isModuleSelected?.length ? moduleDeleteMutate : deleteTaskMutate
         }
+        isLoading={deleteTaskLoading}
       />
     </>
   );

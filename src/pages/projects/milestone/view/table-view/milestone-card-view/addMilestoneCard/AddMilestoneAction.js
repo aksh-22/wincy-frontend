@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddMilestoneAction({ onClick, className }) {
+function AddMilestoneAction({ onClick, className, projectType }) {
   const classes = useStyles();
   return (
     <Card
@@ -68,7 +68,7 @@ function AddMilestoneAction({ onClick, className }) {
           }}
           className="mt-2"
         >
-          Create Milestone
+          {projectType === "MARKETING" ? "Create Segment" : "Create Milestone"}
         </p>
         {/* <p
           style={{

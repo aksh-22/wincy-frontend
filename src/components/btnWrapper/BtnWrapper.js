@@ -1,10 +1,10 @@
 import React from "react";
 import classes from "./BtnWrapper.module.css";
 
-export default function BtnWrapper({ style, children }) {
+export default function BtnWrapper({ style, children, className }) {
   return (
     <div
-      className={classes.wrapper}
+      className={`${classes.wrapper} ${className}`}
       style={{
         ...style,
         backgroundColor:

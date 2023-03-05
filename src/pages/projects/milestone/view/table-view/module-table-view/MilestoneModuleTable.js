@@ -114,7 +114,6 @@ function MilestoneModuleTable({ viewType, orgId, milestoneId, projectId }) {
         />
       ) : (
         <>
-          {!actionDisabled && <AddNewModule />}
           <MilestoneModuleDraggable
             projectId={projectId}
             milestoneId={milestoneId}

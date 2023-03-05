@@ -260,16 +260,14 @@ export default function ProjectCard({ info }) {
 
   useEffect(() => {
     let tempTeam = [];
-    if (
-      info?.projectHead &&
-      info?.projectHead !== "" &&
-      Object.keys(info?.projectHead).length !== 0
-    ) {
-      tempTeam.push({
-        ...info?.projectHead,
+
+    if (info?.projectManagers) {
+      tempTeam = info?.projectManagers?.map((item) => ({
+        ...item,
         projectHead: true,
-      });
+      }));
     }
+
     tempTeam = [...tempTeam, ...(info?.team ? info?.team : [])];
     setTeam(tempTeam);
   }, []);

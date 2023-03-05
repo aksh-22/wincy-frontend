@@ -11,6 +11,7 @@ export const useUpdateAssignees = (handleClose) => {
   } = useMutation(assignProject, {
     onMutate: async (localData) => {
       console.log({ localData });
+
       const previousData = queryClient.getQueryData([
         "projectInfo",
         localData?.orgId,
@@ -20,7 +21,7 @@ export const useUpdateAssignees = (handleClose) => {
       try {
         newData.project = {
           ...newData?.project,
-          projectHead: localData?.projectHeadData,
+          projectManagers: localData?.projectHeadData,
           team: [...localData?.teamData],
         };
         queryClient.setQueryData(

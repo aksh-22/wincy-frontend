@@ -1,21 +1,25 @@
-
-
 import {
-  closestCenter, DndContext, KeyboardSensor,
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors
+  useSensors,
 } from "@dnd-kit/core";
 import {
-  arrayMove, rectSortingStrategy, SortableContext,
-  sortableKeyboardCoordinates
+  arrayMove,
+  rectSortingStrategy,
+  SortableContext,
+  sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { sortMilestone } from "api/milestone";
 import CommonDialog from "components/CommonDialog";
 import ProjectCardCss from "css/ProjectCard.module.css";
+import { useProjectTeam } from "hooks/useUserType";
 import React, { memo, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useMilestones } from "react-query/milestones/useMilestones";
+import { useProjectInfo } from "react-query/projects/useProjectInfo";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ProjectCardSkeleton from "skeleton/projectCard/ProjectCardSkeleton";
@@ -24,7 +28,8 @@ import AddMilestoneAction from "./addMilestoneCard/AddMilestoneAction";
 import AddMilestoneContainer from "./addMilestoneCard/AddMilestoneContainer";
 import MilestoneCard from "./milestoneCard/MilestoneCard";
 
-function MilestoneCardView({ disabled , filter={} }) {
+function MilestoneCardView({ disabled, filter = {} }) {
+  const { projectType } = useProjectTeam();
   const [items, setItems] = useState([
     { _id: "1" },
     { _id: "2" },
@@ -59,39 +64,42 @@ function MilestoneCardView({ disabled , filter={} }) {
     setItems(data?.[3]?.milestonesData);
   }, [data?.[3]?.milestonesData]);
 
-
   const onFilterApply = () => {
-    const { milestoneIds , status } = filter;
+    const { milestoneIds, status } = filter;
     return milestoneIds?.length || status?.length
       ? items?.map(
           (item, i) =>
             // test
             // (filter?.assigneeIds?.includes(row?.assignees?._id) ||
-            (milestoneIds?.includes(item?._id) || status?.includes(item?.status)) &&
-            // platforms?.includes(item?.platform)
-            <MilestoneCard
+            (milestoneIds?.includes(item?._id) ||
+              status?.includes(item?.status)) && (
+              // platforms?.includes(item?.platform)
+              <MilestoneCard
+                info={item}
+                distance={1}
+                key={item?._id}
+                projectId={projectId}
+                disabled={disabled || milestoneIds?.includes(item?._id)}
+                orgId={orgId}
+                id={item?._id}
+                handle={true}
+                value={item?._id}
+              />
+            )
+        )
+      : items?.map((item, i) => (
+          <MilestoneCard
             info={item}
             distance={1}
             key={item?._id}
             projectId={projectId}
-            disabled={disabled || milestoneIds?.includes(item?._id)}
+            disabled={disabled}
             orgId={orgId}
             id={item?._id}
             handle={true}
             value={item?._id}
           />
-        )
-      : items?.map((item, i) => <MilestoneCard
-      info={item}
-      distance={1}
-      key={item?._id}
-      projectId={projectId}
-      disabled={disabled}
-      orgId={orgId}
-      id={item?._id}
-      handle={true}
-      value={item?._id}
-    />);
+        ));
   };
 
   return isLoading ? (
@@ -121,14 +129,22 @@ function MilestoneCardView({ disabled , filter={} }) {
           {!disabled && (
             <CommonDialog
               actionComponent={
-                <AddMilestoneAction className={ProjectCardCss.projectCard2} />
+                <AddMilestoneAction
+                  className={ProjectCardCss.projectCard2}
+                  projectType={projectType}
+                />
               }
-              modalTitle="Create Milestone"
+              modalTitle={
+                projectType === "MARKETING"
+                  ? "Create Segment"
+                  : "Create Milestone"
+              }
               content={
                 <AddMilestoneContainer
                   milestonesData={data?.[3]?.milestonesData}
                   projectId={projectId}
                   orgId={orgId}
+                  projectType={projectType}
                 />
               }
               width={450}
@@ -167,10 +183,9 @@ function MilestoneCardView({ disabled , filter={} }) {
         let tempArray = jsonParser(data?.[3]?.milestonesData ?? []);
         let tempValue = [...data?.[3]?.milestonesData];
         let finalArray = arrayMove(tempValue, oldIndex, newIndex);
-        let tempIds = {}
+        let tempIds = {};
         finalArray?.map((item, index) => {
-          
-          tempIds[item?._id]= index + 1;
+          tempIds[item?._id] = index + 1;
           return null;
         });
 

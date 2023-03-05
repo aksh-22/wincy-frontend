@@ -4,7 +4,7 @@ import React, { useState, memo } from "react";
 import { useAddMilestone } from "react-query/milestones/useAddMilestone";
 
 const AddMilestoneContainer = memo(
-  ({ milestonesData, handleClose, projectId, orgId }) => {
+  ({ milestonesData, handleClose, projectId, orgId, projectType }) => {
     const [milestoneTitle, setMilestoneTitle] = useState("");
     const [error, setError] = useState("");
     const [loadingButton, setLoadingButton] = useState("");
@@ -40,7 +40,9 @@ const AddMilestoneContainer = memo(
           className="inheritParent"
           autoFocus
           //   placeholder="Milestone Title *"
-          label="Milestone Title *"
+          label={
+            projectType === "MARKETING" ? "Section Title" : "Milestone Title"
+          }
           value={milestoneTitle}
           onChange={(e) => {
             setMilestoneTitle(e.target.value);

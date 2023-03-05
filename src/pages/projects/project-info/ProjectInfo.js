@@ -30,10 +30,12 @@ import { useOrgTeam } from "react-query/organisations/useOrgTeam";
 import { useProjectAllTasks } from "react-query/projects/useProjectAllTasks";
 import { useProjectInfo } from "react-query/projects/useProjectInfo";
 import { useUpdateAssignees } from "react-query/projects/useUpdateAssignTeam";
+import { UseData } from "react-query/UseData";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ProjectInfoSkeleton from "skeleton/projectCard/ProjectInfoSkeleton";
 import { capitalizeFirstLetter, textTruncateMore } from "utils/textTruncate";
+import { errorToast } from "utils/toast";
 import Bugs from "../bug/Bugs";
 import Credentials from "../credentials/Credentials";
 import FilterInProject from "../FilterInProject";
@@ -47,14 +49,18 @@ import TextAnimation from "./Textanimation";
 
 const mileStoneEditDisable = (userType, projectInfo) => {
   return ["Admin", "Member++"].includes(userType?.userType) ||
-    projectInfo?.project?.projectHead?._id === userType?.userId
-    ? false
+    projectInfo?.project?.projectManagers?.filter(
+      (item) => item?._id === userType?.userId
+    )?.length
+    ? // projectInfo?.project?.projectHead?._id === userType?.userId
+      false
     : true;
 };
 
 export default function ProjectInfo(props) {
   const { mutateUpdateAssignTeam } = useUpdateAssignees();
   const [viewType, setViewType] = useState("table");
+  const { data: profileData } = UseData();
   // const [currIndex, setCurrIndex] = useState(0);
 
   // const animate = () => {
@@ -157,7 +163,8 @@ export default function ProjectInfo(props) {
   const orgId = useSelector(
     (state) => state.userReducer?.selectedOrganisation?._id
   );
-  const userType = useSelector((state) => state.userReducer?.userType);
+  const user = useSelector((state) => state.userReducer);
+  const userType = user.userType;
   useOrgTeam(orgId);
   useProjectAllTasks({
     orgId,
@@ -192,6 +199,9 @@ export default function ProjectInfo(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     // alert("Called")
+    if (!projectInfo) {
+      return;
+    }
     Array.isArray(projectInfo?.project?.platforms) &&
       projectInfo?.project &&
       setBugPlatform(
@@ -210,16 +220,26 @@ export default function ProjectInfo(props) {
           }))
       );
     let tempTeam = [];
-    if (
-      projectInfo?.project?.projectHead &&
-      projectInfo?.project?.projectHead !== "" &&
-      Object.keys(projectInfo?.project?.projectHead).length !== 0
-    ) {
-      tempTeam.push({
-        ...projectInfo?.project?.projectHead,
+
+    // if (
+    //   projectInfo?.project?.projectHead &&
+    //   projectInfo?.project?.projectHead !== "" &&
+    //   Object.keys(projectInfo?.project?.projectHead).length !== 0
+    // ) {
+    //   tempTeam.push({
+    //     ...projectInfo?.project?.projectHead,
+    //     projectHead: true,
+    //   });
+    // }
+    // if(Array.isArray(projectInfo?.project?.projectManagers)){
+
+    // }
+    projectInfo?.project?.projectManagers?.map((item) =>
+      tempTeam?.push({
+        ...item,
         projectHead: true,
-      });
-    }
+      })
+    );
     tempTeam = [
       ...tempTeam,
       ...(projectInfo?.project?.team ? projectInfo?.project?.team : []),
@@ -349,14 +369,14 @@ export default function ProjectInfo(props) {
 
   // Team Member Update
   const onTeamMemberUpdate = ({ assigneeData }) => {
-    let projectHeadData = {};
-    let projectHeadId = "";
+    let projectHeadData = [];
+    let projectHeadId = [];
     let teamData = [];
     let teamIds = [];
     assigneeData?.map((item) => {
       if (item?.projectHead) {
-        projectHeadId = item?._id;
-        projectHeadData = item;
+        projectHeadId.push(item?._id);
+        projectHeadData.push(item);
       } else {
         teamIds.push(item?._id);
         teamData?.push(item);
@@ -365,13 +385,14 @@ export default function ProjectInfo(props) {
     });
     mutateUpdateAssignTeam({
       data: {
-        projectHead: projectHeadId,
+        projectManagers: projectHeadId,
         team: teamIds,
       },
       projectHeadData,
       teamData,
       orgId,
       projectId: props?.match?.params?.id,
+      assigneeData,
     });
   };
   return isError ? (
@@ -424,10 +445,18 @@ export default function ProjectInfo(props) {
               <div className={classes.headerDetails}>
                 <div
                   className="d_flex alignCenter"
-                  style={{ justifyContent: "space-between", width: "100%" }}
+                  style={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
                 >
                   <div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
                       <LightTooltip
                         title={
                           projectInfo?.project?.title?.length > 50
@@ -503,7 +532,10 @@ export default function ProjectInfo(props) {
                     />
                     <div className={classes.headerDeadline}>
                       <AssignmentTurnedInIcon
-                        style={{ fontSize: 20, marginRight: 5 }}
+                        style={{
+                          fontSize: 20,
+                          marginRight: 5,
+                        }}
                       />
                       <p>
                         Deadline :{" "}
@@ -527,7 +559,12 @@ export default function ProjectInfo(props) {
             />
 
             <div className={classes.btnBar}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <BtnWrapper>
                   <CustomButton
                     onClick={() => {
@@ -546,7 +583,11 @@ export default function ProjectInfo(props) {
                     fontSize={16}
                   >
                     <FlagIcon style={{ fontSize: 20 }} />
-                    <p style={{ marginLeft: 5 }}>Milestones</p>
+                    <p style={{ marginLeft: 5 }}>
+                      {projectInfo?.project?.projectType === "MARKETING"
+                        ? "Segments"
+                        : "Milestones"}
+                    </p>
                   </CustomButton>
                   {projectInfo?.project?.projectType !== "MARKETING" && (
                     <CustomButton
@@ -588,7 +629,10 @@ export default function ProjectInfo(props) {
                     <ForumOutlinedIcon style={{ fontSize: 20 }} />
                     <p style={{ marginLeft: 5 }}>Queries</p>
                   </CustomButton>
-                  {userType?.userType === "Admin" && (
+                  {(["Admin"].includes(userType?.userType) ||
+                    profileData?.user?.permission?.[orgId]?.includes(
+                      "CREATE_INVOICE"
+                    )) && (
                     <CustomButton
                       onClick={() => handleProjectInfoNav(5)}
                       // style={{ marginRight: "10px" }}
@@ -617,7 +661,18 @@ export default function ProjectInfo(props) {
                     >
                       <div className={classes.iconWrapper}>
                         <IconButton
-                          onClick={() => setShowAddMilestone(!showAddMilestone)}
+                          onClick={() => {
+                            if (
+                              projectInfoNav === 5 &&
+                              !projectInfo?.project?.paymentInfo?.currency
+                            ) {
+                              return errorToast(
+                                "Set the currency of the project first."
+                              );
+                            }
+
+                            setShowAddMilestone(!showAddMilestone);
+                          }}
                         >
                           <AddIcon
                             style={{
@@ -639,9 +694,9 @@ export default function ProjectInfo(props) {
                       >
                         <div className={classes.iconWrapper}>
                           <IconButton
-                            onClick={() =>
-                              setShowAddMilestone(!showAddMilestone)
-                            }
+                            onClick={() => {
+                              setShowAddMilestone(!showAddMilestone);
+                            }}
                           >
                             <CloseIcon
                               style={{
@@ -763,7 +818,12 @@ export default function ProjectInfo(props) {
                 )}
 
               {projectInfoNav === 4 && (
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
                   <BtnWrapper>
                     <CustomButton
                       type={queryStatus === "Close" ? "text" : "contained"}
@@ -859,19 +919,24 @@ export default function ProjectInfo(props) {
           />
         )}
 
-        {projectInfoNav === 5 && userType?.userType === "Admin" && (
-          <PaymentPhase
-            projectId={props?.match?.params?.id}
-            orgId={orgId}
-            showAddPhase={showAddMilestone}
-            setShowAddPhase={setShowAddMilestone}
-            // disabled={mileStoneEditDisable(userType, projectInfo)}
-            // queryStatus={queryStatus}
-          />
-        )}
+        {projectInfoNav === 5 &&
+          (["Admin", "Member++"].includes(userType?.userType) ||
+            profileData?.user?.permission?.[orgId]?.includes(
+              "CREATE_INVOICE"
+            )) && (
+            <PaymentPhase
+              projectId={props?.match?.params?.id}
+              orgId={orgId}
+              showAddPhase={showAddMilestone}
+              setShowAddPhase={setShowAddMilestone}
+              // disabled={mileStoneEditDisable(userType, projectInfo)}
+              // queryStatus={queryStatus}
+            />
+          )}
       </div>
       <BottomActionBar
         isSelected={isSelected}
+        isOpen={!!isSelected?.length}
         onClose={() => setIsSelected([])}
         onDelete
         data={
@@ -925,6 +990,11 @@ const getProjectProgress = (milestoneCount) => {
   } else if (!milestoneCount.completedTasks) {
     return 0;
   } else {
+    // let total = 0;
+    // for (let key in milestoneCount) {
+    //   total += milestoneCount[key] || 0;
+    // }
+
     let denominator = milestoneCount?.tasksTotal ?? 0;
     return (milestoneCount?.completedTasks / denominator) * 100;
   }

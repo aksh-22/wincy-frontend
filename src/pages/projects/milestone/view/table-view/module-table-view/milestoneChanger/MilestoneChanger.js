@@ -11,6 +11,8 @@ import { ClickAwayListener } from "@material-ui/core";
 import CustomChip from "components/CustomChip";
 import { addSpaceUpperCase } from "utils/addSpaceUpperCase";
 import TableRowSkeleton from "skeleton/tableRow/TableRowSkeleton";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { useProjectTeam } from "hooks/useUserType";
 
 function MilestoneChanger({
   currentMilestone,
@@ -44,168 +46,137 @@ function MilestoneChanger({
       100;
     return isNaN(percentage) ? 0 : percentage;
   };
-  return (
-    <ClickAwayListener
-      onClickAway={() => {
-        anchorEl && handleClose();
-      }}
-    >
-      {/* <div style={{position:"relative"}}> */}
-      <div>
-        {!selectedMilestone ? (
-          <TableRowSkeleton height={50} />
-        ) : (
-          <div
-            className="milestoneChangerContainer alignCenter"
-            onClick={handleClick}
-          >
-            {/* <div className="milestoneChangerContainer_sideline" style={{
-borderRadius : anchorEl ? "6px 0 0 0px" : "6px 0 0 6px",
-backgroundColor : statusColors[milestoneInfo?.status]
-}}/> */}
-            <div className="alignCenter textEllipse">
-              <p className="mr-1  textEllipse milestoneChangerContainer_milestoneName ml-1">
-                {capitalizeFirstLetter(selectedMilestone?.title ?? "")}
-              </p>
-              <CustomChip
-                label={addSpaceUpperCase(selectedMilestone?.status)}
-                className={"mr-1"}
-                bgColor={statusColors[selectedMilestone?.status]}
-              />
-              <LightTooltip title="Info" arrow>
-                <div className="alignCenter" onClick={toggleMilestoneInfo}>
-                  <Icon name="info" style={{ cursor: "pointer" }} />
-                </div>
-              </LightTooltip>
-            </div>
+  const queryClient = useQueryClient();
+  const milestones = queryClient.getQueryData(["milestones", orgId, projectId]);
+  const [milestoneList, setMilestoneList] = useState([]);
+  useEffect(() => {
+    setMilestoneList(milestones?.milestones);
+  }, [milestones]);
+  const onSelectMilestone = () => {};
+  const { push } = useHistory();
+  const { projectInfo } = useProjectTeam();
 
-            <div className="alignCenter">
-              <ArrowDropDownIcon
-                className={`dropDownArrow ${
-                  anchorEl ? "dropDownArrowUP  " : ""
-                }`}
-              />
-            </div>
+  return !selectedMilestone && projectInfo ? (
+    <TableRowSkeleton height={50} />
+  ) : (
+    <div className="milestoneChangerContainer">
+      <div className="sss">
+        <div className="sidebar_milestone" />
+        <ul>
+          {milestoneList?.map(
+            (item, index) =>
+              index < 3 && (
+                <li
+                  onClick={() => {
+                    setSelectedMilestone(item);
 
-            <div
-              style={{
-                background:
-                  getMilestoneCompletionPercentage() === 100
-                    ? "var(--green)"
-                    : "#FFB300",
-                height: 3,
-                width: `${getMilestoneCompletionPercentage()}%`,
-                position: "absolute",
-                bottom: 0,
-                borderRadius: anchorEl ? "6px 0 0 0px" : "6px 0 0 6px",
-                transition: "0.3s ease-out",
-              }}
-            />
-            <div
-              className={`milestoneChangerContainer_popper ${
-                anchorEl
-                  ? "milestoneChangerContainer_popperOpen"
-                  : "milestoneChangerContainer_popperClose"
-              }`}
-            >
-              <MilestoneNameList
-                orgId={orgId}
-                projectId={projectId}
-                handleClose={handleClose}
-                setSelectedMilestone={setSelectedMilestone}
-                anchorEl={anchorEl}
-                selectedMilestone={selectedMilestone}
-              />
+                    push({
+                      pathname: `/main/projects/${projectId}/${item?._id}`,
+                      state: {
+                        _id: item?._id,
+                        module: true,
+                        milestoneInfo: item,
+                      },
+                    });
+                  }}
+                  key={item?._id}
+                  className={`${
+                    selectedMilestone?._id === item?._id &&
+                    "selected_milestone_tab"
+                  } cursorPointer ${
+                    milestoneList?.length > 3
+                      ? index === 2
+                        ? "last-child-milestone-tree"
+                        : null
+                      : milestoneList?.length - 1 === index
+                      ? "last-child-milestone-tree"
+                      : null
+                  }`}
+                >
+                  <span className="border-top-milestone " />
+                  <div className="milestone_bar ">
+                    <span className="" />
+                    <div className="alignCenter justifyContent_center">
+                      <p>{item?.title}</p>
+                      <LightTooltip title="Info" arrow>
+                        <div
+                          className="alignCenter"
+                          onClick={toggleMilestoneInfo}
+                        >
+                          <Icon
+                            name="info"
+                            style={{
+                              cursor: "pointer",
+                              marginLeft: 5,
+                              height: 18,
+                              width: 18,
+                            }}
+                          />
+                        </div>
+                      </LightTooltip>
+                    </div>
+                  </div>
+                </li>
+              )
+          )}
+          {milestoneList?.length > 3 && (
+            <div className="remaining_milestone_count" onClick={handleClick}>
+              <p>{milestoneList?.length - 3}</p>
+              <div className="arrow_container_milestone_changer">
+                <ArrowRightIcon />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </ul>
       </div>
-
-      {/* <ProgressBar
-        percent={75}
-        filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
-
-      /> */}
-    </ClickAwayListener>
-
-    // </div>
-    //  <Popover
-    //   id={id}
-    //   open={open}
-    //   anchorEl={anchorEl}
-    //   onClose={handleClose}
-    //   anchorOrigin={{
-    //     vertical: "bottom",
-    //     horizontal: "left",
-    //   }}
-    //   // transformOrigin={{
-    //   //   vertical: "bottom",
-    //   //   horizontal: "left",
-    //   // }}
-    //   PaperProps={{
-    //     style: {
-    //       background: "var(--popUpColor)",
-    //       // background: "#646991",
-    //       color: "#FFF",
-    //     },
-    //   }}
-    // >
-    //   <MilestoneNameList orgId={orgId} projectId={projectId} handleClose={handleClose} setSelectedMilestone={setSelectedMilestone}/>
-    // </Popover>
+      <Popover
+        id={"milestone_changer"}
+        open={anchorEl}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        PaperProps={{
+          style: {
+            background: "var(--popUpColor)",
+            color: "#FFF",
+          },
+        }}
+      >
+        <MilestoneNameList
+          projectId={projectId}
+          handleClose={handleClose}
+          setSelectedMilestone={setSelectedMilestone}
+          setMilestoneList={setMilestoneList}
+          milestoneList={milestoneList}
+        />
+      </Popover>
+    </div>
   );
-  // return (
-  //   <div className="milestoneChangerContainer">
-  //     <div onClick={handleClick} className="milestoneToggleButton">
-  //       <p className="mr-1 flex textEllipse" style={{fontSize  :16}}>{capitalizeFirstLetter(selectedMilestone)}</p>
-
-  //       <ArrowDropDownIcon
-  //         className={`dropDownArrow ${anchorEl ? "dropDownArrowUP  " : ""}`}
-  //       />
-  //     </div>
-
-  //     <Popover
-  //       id={id}
-  //       open={open}
-  //       anchorEl={anchorEl}
-  //       onClose={handleClose}
-  //       anchorOrigin={{
-  //         vertical: "bottom",
-  //         horizontal: "left",
-  //       }}
-  //       // transformOrigin={{
-  //       //   vertical: "bottom",
-  //       //   horizontal: "left",
-  //       // }}
-  //       PaperProps={{
-  //         style: {
-  //           background: "var(--popUpColor)",
-  //           // background: "#646991",
-  //           color: "#FFF",
-  //         },
-  //       }}
-  //     >
-  //       <MilestoneNameList orgId={orgId} projectId={projectId} handleClose={handleClose} setSelectedMilestone={setSelectedMilestone}/>
-  //     </Popover>
-  //   </div>
-  // );
 }
 
 export default MilestoneChanger;
 
 const MilestoneNameList = ({
-  orgId,
   projectId,
   handleClose,
   setSelectedMilestone,
-  anchorEl,
   selectedMilestone,
+  milestoneList,
+  setMilestoneList,
 }) => {
-  const queryClient = useQueryClient();
-  const {  push } = useHistory();
-  // const [selectedMilestone, setSelectedMilestone] = useState({});
-  const [milestoneList, setMilestoneList] = useState([]);
-  const onChangeMilestoneSelect = (event) => {
+  const { push } = useHistory();
+  const onChangeMilestoneSelect = (event, index) => {
     const info = event;
+    let temp = milestoneList;
+    [temp[0], temp[index]] = [temp[index], temp[0]];
+    setMilestoneList(temp);
     setSelectedMilestone(info);
 
     push({
@@ -215,28 +186,17 @@ const MilestoneNameList = ({
     handleClose();
   };
 
-  const milestones = queryClient.getQueryData(["milestones", orgId, projectId]);
-  useEffect(() => {
-    setMilestoneList(milestones?.milestones);
-  }, [milestones]);
-
   return (
-    <div className="milestoneContainer_Dropdown textEllipse">
+    <div className="milestone_changer_dropdown textEllipse">
       {milestoneList?.map(
         (item, index) =>
+          index >= 3 &&
           selectedMilestone?._id !== item?._id && (
             <div
               className="milestoneChangerContainer_row"
               key={item?._id}
-              onClick={() => onChangeMilestoneSelect(item)}
+              onClick={() => onChangeMilestoneSelect(item, index)}
             >
-              <div
-                className="milestoneChangerContainer_sideline"
-                style={{
-                  borderRadius: anchorEl ? "0px 0 0 0px" : "6px 0 0 6px",
-                  backgroundColor: statusColors[item?.status],
-                }}
-              />
               <p className="textEllipse flex">
                 {capitalizeFirstLetter(item?.title)}
               </p>
@@ -245,10 +205,4 @@ const MilestoneNameList = ({
       )}
     </div>
   );
-};
-
-const statusColors = {
-  Active: "#0098EB",
-  Completed: "#02CD79",
-  NotStarted: "#FFB300",
 };

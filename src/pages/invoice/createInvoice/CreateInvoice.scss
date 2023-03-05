@@ -40,7 +40,7 @@
     padding-bottom: 20px;
     .invoice_service_header{
       display: grid;
-      grid-template-columns:1.1fr 0.2fr 0.2fr 0.2fr;
+      grid-template-columns:1.3fr 0.2fr 0.3fr;
       font-size: 16px;
       font-family: "Lato-Bold";
       margin: 10px 0;
@@ -51,7 +51,7 @@
     }
   
     .invoice_service_row{
-      grid-template-columns: 1fr 0.1fr 0.1fr 0.1fr;
+      grid-template-columns: 1.1fr 0.2fr 0.2fr;
       font-size: 16px;
       font-family: "Lato-Bold";
       margin: 20px 0;

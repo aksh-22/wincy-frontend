@@ -123,29 +123,23 @@ function ModuleTaskRow({
                   onSelectTask={onSelectTask}
                   isSelected={isSelected}
                   isTaskDragging={isTaskDragging}
+                  isTaskLastIndex={
+                    data?.find(
+                      (x) =>
+                        x?._id[0] === moduleInfo?._id ||
+                        (x?._id?.length === 0 &&
+                          moduleInfo?._id === "unCategorized")
+                    )?.tasks?.length -
+                      1 ===
+                    index
+                  }
                 />
               )}
             </Draggable>
           ));
   };
   return (
-    <Droppable
-      droppableId={listId}
-      type={listType}
-      isDropDisabled={disabled}
-      // mode=""
-      // renderClone={(provided, snapshot, rubric) => (
-      //   <TaskRowItem
-      //     provided={provided}
-      //     isDragging={snapshot.isDragging}
-      //     index={rubric.source.index}
-      //     style={{ margin: 0 }}
-      //     taskInfo={taskData[rubric.source.index]}
-      //     onSelectTask={onSelectTask}
-      //     isSelected={isSelected}
-      //   />
-      // )}
-    >
+    <Droppable droppableId={listId} type={listType} isDropDisabled={disabled}>
       {(dropProvided, dropSnapshot) => (
         <div {...dropProvided.droppableProps} ref={dropProvided.innerRef}>
           {!disabled && (
@@ -173,6 +167,29 @@ function ModuleTaskRow({
         </div>
       )}
     </Droppable>
+    // <>
+    //   {!disabled && (
+    //     <AddTaskRow
+    //       moduleInfo={moduleInfo}
+    //       orgId={orgId}
+    //       projectId={projectId}
+    //       milestoneId={milestoneId}
+    //       disabled={disabled}
+    //     />
+    //   )}
+
+    //   {isLoading ? (
+    //     <TableRowSkeleton
+    //       height={40}
+    //       count={4}
+    //       style={{
+    //         marginLeft: 15,
+    //       }}
+    //     />
+    //   ) : (
+    //     taskRowRender()
+    //   )}
+    // </>
   );
   // return (
   //   <Droppable

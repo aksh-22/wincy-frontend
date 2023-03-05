@@ -21,7 +21,11 @@ function MoveToAction({ actionButton, className, moveId, milestoneId, type }) {
       {actionButton ? (
         <div onClick={handleClick}>{actionButton}</div>
       ) : (
-        <MoveToActionComponent onClick={handleClick} type={"move"} />
+        <MoveToActionComponent
+          onClick={handleClick}
+          type={"move"}
+          className="mr-1"
+        />
       )}
       <Popover
         id={id}

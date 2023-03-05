@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SubTaskList from "./subTask/SubTaskList";
 import TaskStatus from "./taskStatus/TaskStatus";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import CustomAvatar from "components/CustomAvatar";
 
 const TaskRowItem = React.forwardRef(
   (
@@ -25,6 +26,8 @@ const TaskRowItem = React.forwardRef(
       isTaskDragging,
       disabledSubTask,
       parentId,
+      isLastIndex,
+      isTaskLastIndex,
     },
     ref
   ) => {
@@ -164,60 +167,54 @@ const TaskRowItem = React.forwardRef(
     const sideBarToggle = useCallback(() => {
       setIsToggle(!isToggle);
     }, [isToggle]);
-    const [isSubtaskToggle, setIsSubtaskToggle] = useState(true);
+    const [isSubtaskToggle, setIsSubtaskToggle] = useState(
+      !!taskInfo?.childTasks?.length
+    );
 
+    const isModuleSelected = useSelector(
+      (state) => state.userReducer?.isModuleSelected
+    );
     return (
-      <>
+      <li
+        // className={parentId && isLastIndex ? "pb-5" : ""}
+        // style={{
+        //   border: parentId && "none",
+
+        //   // borderBottomLeftRadius: 13,
+        // }}
+
+        style={{
+          borderBottomLeftRadius: !isTaskLastIndex ? 0 : 13,
+          border: parentId && "none",
+        }}
+      >
         <div
+          className={parentId ? "abc" : ""}
           ref={provided?.innerRef}
           {...provided?.draggableProps}
           {...provided?.dragHandleProps}
           style={{ ...getStyle(provided, style) }}
         >
           <div
-            className="tableRowModule"
             style={{
-              background: taskInfo?.disabled ? "rgba(255,255,255,0.1)" : "",
-              opacity: taskInfo?.disabled ? 0.6 : 1,
-              cursor:
-                taskInfo?.disabled || actionDisabled ? "default" : "pointer",
-              // platformsList?.length
-              gridTemplateColumns: !!platforms?.length
-                ? `4fr 1fr 1fr 1fr 1fr`
-                : `4fr 1fr 1fr 1fr`,
-              marginRight: !!platforms?.length ? 0 : 1,
+              backgroundColor: taskInfo?.disabled
+                ? "rgba(255,255,255 , 0.1)"
+                : null,
+            }}
+            className={`tableRowModuleHeader ${
+              // !!!platformsList?.length && "tableRowModuleHeader_withoutPlatform"
+              ""
+            }  ${actionDisabled && "tableRowModuleHeader_withoutCheckBox"}`}
+            onClick={(e) => {
+              if (taskInfo?.disabled) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
             }}
           >
-            {/* Title */}
-            <div className="d_flex ">
-              <div className="firstEmptyCell" />
-              <div
-                className={`
-                
-                ${
-                  (
-                    Object.keys(isSubTaskSelected).length
-                      ? false
-                      : !actionDisabled || taskInfo?.disabled
-                      ? true
-                      : false
-                  )
-                    ? "sideLine"
-                    : "sideLineNoHover"
-                } 
-               
-                ${
-                  isSelected.length ||
-                  // isSubTaskSelected?.[parentId]?.includes(taskInfo?._id)
-                  (Object.keys(isSubTaskSelected).length && parentId)
-                    ? `sideLineSelected`
-                    : ""
-                }`}
-                onClick={() =>
-                  (!actionDisabled || taskInfo?.disabled ? true : false) &&
-                  onSelectTask(taskInfo?._id)
-                }
-              >
+            <div className="row_starter"></div>
+            {!actionDisabled && (
+              <div className="border_divider">
                 <Checkbox
                   size="small"
                   checked={
@@ -225,82 +222,102 @@ const TaskRowItem = React.forwardRef(
                       ? !!isSubTaskSelected?.[parentId]?.includes(taskInfo?._id)
                       : isSelected.includes(taskInfo?._id)
                   }
+                  onClick={() =>
+                    (!actionDisabled || taskInfo?.disabled ? true : false) &&
+                    onSelectTask(taskInfo?._id)
+                  }
                   // onClick={() => multiSelection(row?._id, milestoneId)}
-                  disabled={actionDisabled || taskInfo?.disabled ? true : false}
+                  disabled={
+                    actionDisabled ||
+                    taskInfo?.disabled ||
+                    isModuleSelected?.length ||
+                    (Object.keys(isSubTaskSelected).length && !parentId)
+                      ? true
+                      : false
+                  }
                 />
               </div>
-
-              <div className="rowContainer flex borderRight">
-                {!parentId && !isSelected?.length && (
-                  <div onClick={() => setIsSubtaskToggle((prev) => !prev)}>
-                    <div
-                      className={`alignCenter arrowContainer ${
-                        !isSubtaskToggle ? "arrowContainer_90degree" : ""
-                      }`}
-                    >
-                      <ArrowRightIcon />
-                    </div>
+            )}
+            <div className="border_divider tableRowModuleNew">
+              {!parentId && !isSelected?.length && (
+                <div onClick={() => setIsSubtaskToggle((prev) => !prev)}>
+                  <div
+                    className={`alignCenter arrowContainer ${
+                      !isSubtaskToggle ? "arrowContainer_90degree" : ""
+                    }`}
+                  >
+                    <ArrowRightIcon />
                   </div>
-                )}
-                <div className="d_flex flex">
-                  <InputTextClickAway
-                    value={taskInfo?.title}
-                    type="text"
-                    onChange={onTitleUpdate}
-                    disabled={
-                      actionDisabled || taskInfo?.disabled ? true : false
-                    }
-                    className="textEllipse mr-2"
-                    containerStyle={{
-                      width: 0,
-                    }}
-                    textClassName={"textEllipse"}
-                  />
                 </div>
-                <div
-                  // style={{ width: 50 }}
-                  className="alignCenter justifyContent_center cursorPointer"
-                  onClick={sideBarToggle}
-                >
-                  {taskInfo?.description && (
-                    <LightTooltip title="Description" arrow>
-                      <div className="alignCenter justifyContent_center cursorPointer mr-1">
-                        <Icon name="menu" />
-                      </div>
-                    </LightTooltip>
-                  )}
-                  {taskInfo?.bugCount?.totalOpen > 0 && (
-                    <LightTooltip title="Bugs Open" arrow>
-                      <div
-                        style={{
-                          marginRight: 10,
-                          fontSize: 13,
-                          fontFamily: "Lato-Bold",
-                        }}
-                      >
-                        <span style={{ fontSize: 19 }}>
-                          {taskInfo?.bugCount?.totalOpen}
-                        </span>
-                        <span>/</span>
-                        <span style={{ fontFamily: "Lato-Italic" }}>
-                          {taskInfo?.bugCount?.total}
-                        </span>{" "}
-                      </div>
-                    </LightTooltip>
-                  )}
+              )}
+              <InputTextClickAway
+                value={taskInfo?.title}
+                type="text"
+                onChange={onTitleUpdate}
+                disabled={actionDisabled || taskInfo?.disabled ? true : false}
+                className="textEllipse mr-2"
+                containerStyle={{
+                  width: 0,
+                }}
+                textClassName={
+                  !parentId ? "textEllipse " : "textEllipse subtask_text"
+                }
+              />
 
-                  <LightTooltip title="Task Info" arrow>
-                    <div className="alignCenter justifyContent_center cursorPointer mr-1">
-                      <Icon name="info" />
+              <div
+                // style={{ width: 50 }}
+                className="alignCenter justifyContent_center cursorPointer"
+                onClick={sideBarToggle}
+              >
+                {!!taskInfo?.childTasks?.length ? (
+                  <LightTooltip title="Total Subtask" arrow>
+                    <div
+                      className="mr-1 subTaskTotal_container"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setIsSubtaskToggle((prev) => !prev);
+                      }}
+                    >
+                      {taskInfo?.childTasks?.length}
                     </div>
                   </LightTooltip>
-                </div>
+                ) : null}
+
+                {taskInfo?.description && (
+                  <LightTooltip title="Description" arrow>
+                    <div className="alignCenter justifyContent_center cursorPointer mr-1">
+                      <Icon name="menu" />
+                    </div>
+                  </LightTooltip>
+                )}
+                {taskInfo?.bugCount?.totalOpen > 0 && (
+                  <LightTooltip title="Bugs Open" arrow>
+                    <div
+                      style={{
+                        marginRight: 10,
+                        fontSize: 13,
+                        fontFamily: "Lato-Bold",
+                      }}
+                    >
+                      <span style={{ fontSize: 19 }}>
+                        {taskInfo?.bugCount?.totalOpen}
+                      </span>
+                      <span>/</span>
+                      <span style={{ fontFamily: "Lato-Italic" }}>
+                        {taskInfo?.bugCount?.total}
+                      </span>{" "}
+                    </div>
+                  </LightTooltip>
+                )}
+                <LightTooltip title="Task Info" arrow>
+                  <div className="alignCenter justifyContent_center cursorPointer mr-1">
+                    <Icon name="info" />
+                  </div>
+                </LightTooltip>
               </div>
             </div>
-
-            {/* Assignee */}
-
-            <div className="alignCenter justifyContent_center borderRight">
+            <div className="border_divider">
               <AssigneeSelection
                 assignee={taskInfo?.assignees}
                 multiple
@@ -311,9 +328,7 @@ const TaskRowItem = React.forwardRef(
                 taskInfo={taskInfo}
               />
             </div>
-
-            {/* Due Date */}
-            <div className="alignCenter justifyContent_center borderRight">
+            <div className="border_divider">
               <DueDateProgress
                 onChange={onDueDateUpdate}
                 dueDate={taskInfo?.dueDate}
@@ -322,40 +337,247 @@ const TaskRowItem = React.forwardRef(
                 removeButton
               />
             </div>
-
-            {/* Status */}
-            <TaskStatus
-              info={taskInfo}
-              className="borderRight"
-              orgId={orgId}
-              parentId={parentId}
-              // disabled={individualStatusUpdatePermission ? false : actionDisabled}
-              disabled={
-                !actionDisabled
-                  ? false
-                  : individualStatusUpdatePermission
-                  ? false
-                  : ["InProgress", "Active", "NotStarted"].includes(
-                      taskInfo?.status
-                    )
-              }
-              taskStatusPermission={actionDisabled}
-              individualStatusUpdatePermission={
-                individualStatusUpdatePermission
-              }
-            />
-            {/* Platform */}
-            {!!platformsList?.length && (
-              <CustomMenu
-                activeMenuItem={taskInfo?.platforms}
-                disabled={actionDisabled}
+            <div className="border_divider">
+              <TaskStatus
+                info={taskInfo}
                 className="borderRight"
-                menuItems={platformsList}
-                handleMenuClick={onPlatformUpdate}
-                multiple
+                orgId={orgId}
+                parentId={parentId}
+                // disabled={individualStatusUpdatePermission ? false : actionDisabled}
+                disabled={
+                  !actionDisabled
+                    ? false
+                    : individualStatusUpdatePermission
+                    ? false
+                    : ["InProgress", "Active", "NotStarted"].includes(
+                        taskInfo?.status
+                      )
+                }
+                taskStatusPermission={actionDisabled}
+                individualStatusUpdatePermission={
+                  individualStatusUpdatePermission
+                }
               />
+            </div>
+            {!!platformsList?.length ? (
+              <div className="border_divider">
+                <CustomMenu
+                  activeMenuItem={taskInfo?.platforms}
+                  disabled={actionDisabled}
+                  className="borderRight"
+                  menuItems={platformsList}
+                  handleMenuClick={onPlatformUpdate}
+                  multiple
+                />
+              </div>
+            ) : (
+              <div className="border_divider">
+                <CustomAvatar
+                  src={taskInfo?.createdBy?.[0]?.profilePicture}
+                  title={taskInfo?.createdBy?.[0]?.name}
+                  small
+                  borderColor={"#3d4368"}
+                  withBorder={1}
+                />
+              </div>
             )}
           </div>
+
+          {!isDragging &&
+            isSubtaskToggle &&
+            !disabledSubTask &&
+            !isSelected?.length &&
+            !isModuleSelected?.length && (
+              // <li className="pb-5" style={{ border: "none" }}>
+              <SubTaskList
+                orgId={orgId}
+                milestoneId={taskInfo?.milestone}
+                projectId={taskInfo?.project}
+                taskId={taskInfo?._id}
+                teamList={teamList}
+                actionDisabled={actionDisabled}
+                platforms={platforms}
+                isTaskLastIndex={isTaskLastIndex}
+                moduleId={taskInfo?.module}
+              />
+            )}
+
+          {
+            //   <div
+            //   className="tableRowModule"
+            //   style={{
+            //     background: taskInfo?.disabled ? "rgba(255,255,255,0.1)" : "",
+            //     opacity: taskInfo?.disabled ? 0.6 : 1,
+            //     cursor:
+            //       taskInfo?.disabled || actionDisabled ? "default" : "pointer",
+            //     // platformsList?.length
+            //     gridTemplateColumns: !!platforms?.length
+            //       ? `4fr 1fr 1fr 1fr 1fr`
+            //       : `4fr 1fr 1fr 1fr`,
+            //     marginRight: !!platforms?.length ? 0 : 1,
+            //   }}
+            // >
+            //   {/* Title */}
+            //   <div className="d_flex ">
+            //     <div className="firstEmptyCell" />
+            //     <div
+            //       className={`
+            //       ${
+            //         (
+            //           Object.keys(isSubTaskSelected).length
+            //             ? false
+            //             : !actionDisabled || taskInfo?.disabled
+            //             ? true
+            //             : false
+            //         )
+            //           ? "sideLine"
+            //           : "sideLineNoHover"
+            //       }
+            //       ${
+            //         isSelected.length ||
+            //         // isSubTaskSelected?.[parentId]?.includes(taskInfo?._id)
+            //         (Object.keys(isSubTaskSelected).length && parentId)
+            //           ? `sideLineSelected`
+            //           : ""
+            //       }`}
+            // onClick={() =>
+            //   (!actionDisabled || taskInfo?.disabled ? true : false) &&
+            //   onSelectTask(taskInfo?._id)
+            // }
+            //     >
+            // <Checkbox
+            //   size="small"
+            //   checked={
+            //     parentId
+            //       ? !!isSubTaskSelected?.[parentId]?.includes(taskInfo?._id)
+            //       : isSelected.includes(taskInfo?._id)
+            //   }
+            //   // onClick={() => multiSelection(row?._id, milestoneId)}
+            //   disabled={actionDisabled || taskInfo?.disabled ? true : false}
+            // />
+            //     </div>
+            //     <div className="rowContainer flex borderRight">
+            // {!parentId && !isSelected?.length && (
+            //   <div onClick={() => setIsSubtaskToggle((prev) => !prev)}>
+            //     <div
+            //       className={`alignCenter arrowContainer ${
+            //         !isSubtaskToggle ? "arrowContainer_90degree" : ""
+            //       }`}
+            //     >
+            //       <ArrowRightIcon />
+            //     </div>
+            //   </div>
+            // )}
+            //       <div className="d_flex flex">
+            // <InputTextClickAway
+            //   value={taskInfo?.title}
+            //   type="text"
+            //   onChange={onTitleUpdate}
+            //   disabled={
+            //     actionDisabled || taskInfo?.disabled ? true : false
+            //   }
+            //   className="textEllipse mr-2"
+            //   containerStyle={{
+            //     width: 0,
+            //   }}
+            //   textClassName={"textEllipse"}
+            // />
+            //       </div>
+            //       <div
+            //         // style={{ width: 50 }}
+            //         className="alignCenter justifyContent_center cursorPointer"
+            //         onClick={sideBarToggle}
+            //       >
+            //         {taskInfo?.description && (
+            //           <LightTooltip title="Description" arrow>
+            //             <div className="alignCenter justifyContent_center cursorPointer mr-1">
+            //               <Icon name="menu" />
+            //             </div>
+            //           </LightTooltip>
+            //         )}
+            //         {taskInfo?.bugCount?.totalOpen > 0 && (
+            //           <LightTooltip title="Bugs Open" arrow>
+            //             <div
+            //               style={{
+            //                 marginRight: 10,
+            //                 fontSize: 13,
+            //                 fontFamily: "Lato-Bold",
+            //               }}
+            //             >
+            //               <span style={{ fontSize: 19 }}>
+            //                 {taskInfo?.bugCount?.totalOpen}
+            //               </span>
+            //               <span>/</span>
+            //               <span style={{ fontFamily: "Lato-Italic" }}>
+            //                 {taskInfo?.bugCount?.total}
+            //               </span>{" "}
+            //             </div>
+            //           </LightTooltip>
+            //         )}
+            //         <LightTooltip title="Task Info" arrow>
+            //           <div className="alignCenter justifyContent_center cursorPointer mr-1">
+            //             <Icon name="info" />
+            //           </div>
+            //         </LightTooltip>
+            //       </div>
+            //     </div>
+            //   </div>
+            //   {/* Assignee */}
+            //   <div className="alignCenter justifyContent_center borderRight">
+            // <AssigneeSelection
+            //   assignee={taskInfo?.assignees}
+            //   multiple
+            //   team={teamList}
+            //   onChange={onAssigneeUpdate}
+            //   disabled={actionDisabled}
+            //   contentCenter
+            //   taskInfo={taskInfo}
+            // />
+            //   </div>
+            //   {/* Due Date */}
+            //   <div className="alignCenter justifyContent_center borderRight">
+            // <DueDateProgress
+            //   onChange={onDueDateUpdate}
+            //   dueDate={taskInfo?.dueDate}
+            //   status={taskInfo?.status}
+            //   disabled={actionDisabled}
+            //   removeButton
+            // />
+            //   </div>
+            //   {/* Status */}
+            // <TaskStatus
+            //   info={taskInfo}
+            //   className="borderRight"
+            //   orgId={orgId}
+            //   parentId={parentId}
+            //   // disabled={individualStatusUpdatePermission ? false : actionDisabled}
+            //   disabled={
+            //     !actionDisabled
+            //       ? false
+            //       : individualStatusUpdatePermission
+            //       ? false
+            //       : ["InProgress", "Active", "NotStarted"].includes(
+            //           taskInfo?.status
+            //         )
+            //   }
+            //   taskStatusPermission={actionDisabled}
+            //   individualStatusUpdatePermission={
+            //     individualStatusUpdatePermission
+            //   }
+            // />
+            //   {/* Platform */}
+            //   {!!platformsList?.length && (
+            // <CustomMenu
+            //   activeMenuItem={taskInfo?.platforms}
+            //   disabled={actionDisabled}
+            //   className="borderRight"
+            //   menuItems={platformsList}
+            //   handleMenuClick={onPlatformUpdate}
+            //   multiple
+            // />
+            //   )}
+            // </div>
+          }
 
           <CustomSideBar show={isToggle} toggle={sideBarToggle}>
             <SubTaskInfoSidebar
@@ -365,7 +587,7 @@ const TaskRowItem = React.forwardRef(
               parentId={parentId}
             />
           </CustomSideBar>
-          {!isDragging &&
+          {/* {!isDragging &&
             isSubtaskToggle &&
             !disabledSubTask &&
             !isSelected?.length && (
@@ -378,9 +600,9 @@ const TaskRowItem = React.forwardRef(
                 actionDisabled={actionDisabled}
                 platforms={platforms}
               />
-            )}
+            )} */}
         </div>
-      </>
+      </li>
     );
   }
 );

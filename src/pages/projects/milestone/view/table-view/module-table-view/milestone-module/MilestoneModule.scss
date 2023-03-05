@@ -90,7 +90,7 @@
   .moduleContainer {
     width: 100%;
     margin-bottom: 30px;
-    transition: ease-in-out 0.2s;
+    // transition: ease-in-out 0.2s;
 
     .moduleContainerTable {
       width: 100%;
@@ -199,15 +199,15 @@
   &:hover .sideLine {
     width: 40px;
   }
-  &:hover{
+  &:hover {
     width: 40px;
   }
 }
-.sideLineContainerNoHover{
+.sideLineContainerNoHover {
   width: 12px;
   transition: ease-in-out 0.2s;
 }
-.sideLineContainer_noHover{
+.sideLineContainer_noHover {
   width: 40px;
 }
 
@@ -235,10 +235,10 @@
     position: relative;
   }
   .sideLineNoHover {
-    background-color:#f2983e;
+    background-color: #f2983e;
     height: 40px;
     width: 5px;
-    overflow:hidden ;
+    overflow: hidden;
   }
   .sideLine {
     // background-color: var(--lightBlue);
@@ -281,4 +281,160 @@
   background-color: var(--milestoneRowAddColor);
 }
 
+.tableRowModuleNew {
+  .arrowContainer {
+    transition: ease-in-out 0.2s;
+    transform: rotate(90deg);
+  }
+  .arrowContainer_90degree {
+    transform: rotate(0deg);
+  }
+}
 
+.tableRowModuleHeader_withoutPlatform {
+  grid-template-columns: 0fr 0.4fr 4fr 1fr 1fr 1fr !important;
+}
+.tableRowModuleHeader_withoutCheckBox {
+  grid-template-columns: 0fr 4fr 1fr 1fr 1fr 1fr !important;
+}
+.tableRowModuleHeader_topWidth {
+  border-top: 1px solid #3d4368;
+}
+.tableRowModuleHeader {
+  display: grid;
+  background-color: #0e0841;
+  height: 40px;
+  grid-template-columns: 0fr 0.4fr 4fr 1fr 1fr 1fr 1fr;
+  outline: none;
+  align-items: center;
+  // color: #8e8e92;
+  border-bottom: 1px #3d4368 solid;
+  .row_starter {
+    background: #f2983e;
+    width: 5px;
+    overflow: hidden;
+    height: 100%;
+    margin-left: -3px;
+  }
+
+  .border_divider {
+    border-right: 1px solid;
+    border-color: #3d4368;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .subTaskTotal_container {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background: rgb(242, 152, 62);
+    font-size: 12px;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+}
+
+$color_silver_chalice: #f2983e;
+$color_tundora: #f2983e;
+$color_wild_sand: #f5f5f5;
+
+.treeview {
+  // float: left;
+  // width: 100%;
+  // background-color: $color_wild_sand;
+  // padding: 15px 30px 30px;
+
+  ul {
+    // float: left;
+    width: 100%;
+    position: relative;
+    list-style: none;
+    // margin-bottom: 20px;
+    li {
+      // float: left;
+      width: 100%;
+      border-left: 1px solid $color_tundora;
+      // border-bottom-left-radius: 13px;
+      // padding: 10px 0;
+      // margin-left: 1px;
+      .abc {
+        // float: left;
+        width: 100%;
+        line-height: 1.5;
+        padding-left: 30px;
+        position: relative;
+        bottom: -20px;
+
+        &:before {
+          // content: "";
+          // width: 30px;
+          // height: 1px;
+          // background-color: $color_tundora;
+          // position: absolute;
+          // top: 50%;
+          // bottom: 50%;
+          // left: 0;
+          content: "";
+          width: 30px;
+          height: 30px;
+          /* background-color: #f2983e; */
+          position: absolute;
+          top: -20%;
+          bottom: 50%;
+          left: 0;
+          border-bottom-left-radius: 15px;
+          border-bottom: 1px solid #f2983e;
+        }
+      }
+      // ul {
+      //   margin: 20px 0;
+      //   li {
+      //     border-left-color: $color_silver_chalice;
+      //     margin-left: 50px;
+      //     width: calc(100% - 50px);
+
+      //     div {
+      //       color: $color_silver_chalice;
+      //       padding-left: 15px;
+
+      //       &:before {
+      //         background-color: $color_silver_chalice;
+      //         width: 10px;
+      //       }
+      //     }
+      //   }
+      // }
+    }
+  }
+}
+
+.module_table_row {
+  .check_box_show {
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+  }
+
+  .check_box_display {
+    width: 30px;
+  }
+  &:hover {
+    .check_box_show {
+      width: 30px;
+      height: auto;
+    }
+  }
+}
+
+.subtask_text {
+  opacity: 0.7;
+}

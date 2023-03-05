@@ -19,6 +19,7 @@ function ProjectInfoSideBarAbout({ info, disabled, onValueChange, userType }) {
     (state) => state.userReducer?.userData?.platforms
   );
 
+  console.log("-->", info?.description);
   return (
     <div>
       <div className="mb-3">
@@ -52,20 +53,32 @@ function ProjectInfoSideBarAbout({ info, disabled, onValueChange, userType }) {
           <div className={css.tableContainer}>
             {
               // New Code Custom Row
-              sectionOne?.map((item, index) => (
-               (( info?.status === "OnHold" ) || (info?.status !== "OnHold" && item?.apiKey !== "onHoldReason")) &&    <CustomRow
-                  key={item?.apiKey}
-                  value={item?.apiKey === "status" ? addSpaceUpperCase(info?.[item?.apiKey]) : info?.[item?.apiKey]}
-                  apiKey={item?.apiKey}
-                  field={item?.field}
-                  inputType={item?.type}
-                  onChange={onValueChange}
-                  menuItems={selectMenuItems(item?.apiKey , item?.apiKey === "platforms" ? platform: technology)}
-                  multiple={item?.multiple ?? false}
-                  minDate={new Date()}
-                  disabled={disabled}
-                />
-              ))
+              sectionOne?.map(
+                (item, index) =>
+                  (info?.status === "OnHold" ||
+                    (info?.status !== "OnHold" &&
+                      item?.apiKey !== "onHoldReason")) && (
+                    <CustomRow
+                      key={item?.apiKey}
+                      value={
+                        item?.apiKey === "status"
+                          ? addSpaceUpperCase(info?.[item?.apiKey])
+                          : info?.[item?.apiKey]
+                      }
+                      apiKey={item?.apiKey}
+                      field={item?.field}
+                      inputType={item?.type}
+                      onChange={onValueChange}
+                      menuItems={selectMenuItems(
+                        item?.apiKey,
+                        item?.apiKey === "platforms" ? platform : technology
+                      )}
+                      multiple={item?.multiple ?? false}
+                      minDate={new Date()}
+                      disabled={disabled}
+                    />
+                  )
+              )
             }
           </div>
         </div>

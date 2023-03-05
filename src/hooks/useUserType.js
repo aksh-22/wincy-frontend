@@ -22,14 +22,26 @@ export const useUserType = () => {
 
 export const useProjectTeam = () => {
   const projectInfo = useSelector((state) => state.userReducer?.projectInfo);
-  const {location} = useHistory()
+  const { location } = useHistory();
   let team = projectInfo?.team;
   let project = projectInfo?.project;
-  let platforms = projectInfo?.project?.platforms
+  let platforms = projectInfo?.project?.platforms;
   let projectId = projectInfo?.projectId;
   let orgId = projectInfo?.orgId;
   let milestoneId = location?.pathname.split("/")?.[4];
-  let actionDisabled = projectInfo?.actionDisabled
-  let bugsPlatforms = projectInfo?.bugsPlatforms
-  return {projectInfo , team , project , platforms , orgId , projectId , milestoneId , actionDisabled  , bugsPlatforms};
+  let actionDisabled = projectInfo?.actionDisabled;
+  let bugsPlatforms = projectInfo?.bugsPlatforms;
+  let projectType = projectInfo?.project?.projectType;
+  return {
+    projectInfo,
+    team,
+    project,
+    platforms,
+    orgId,
+    projectId,
+    milestoneId,
+    actionDisabled,
+    bugsPlatforms,
+    projectType,
+  };
 };

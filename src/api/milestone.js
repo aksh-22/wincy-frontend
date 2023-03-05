@@ -57,6 +57,19 @@ export const addTask = (data) => {
     .then((res) => res?.data?.data);
 };
 
+export const updateTaskDescription = (data) => {
+  if (taskCancelToken !== null) {
+    taskCancelToken();
+  }
+  return axiosInstance
+    .patch(`/tasks/description/${data.orgId}/${data.taskId}`, data.data, {
+      cancelToken: new CancelToken((e) => {
+        taskCancelToken = e;
+      }),
+    })
+    .then((res) => res?.data?.data);
+};
+
 export const updateTask = (data) => {
   if (taskCancelToken !== null) {
     taskCancelToken();

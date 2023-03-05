@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import TableRowSkeleton from "skeleton/tableRow/TableRowSkeleton";
 import { jsonParser } from "utils/jsonParser";
+import AddNewModule from "./milestone-module/AddNewModule";
 import MilestoneModule from "./milestone-module/MilestoneModule";
 function MilestoneModuleDraggable({
   orgId,
@@ -279,11 +280,12 @@ function MilestoneModuleDraggable({
     setFilterData({
       modules: filterModule,
     });
-    console.log("data?.modules", data, filterModule, ids);
   }, [filter, data]);
   const [isTaskDragging, setIsTaskDragging] = useState(false);
   return (
     <>
+      {!disabled && !isLoading && <AddNewModule />}
+
       {isLoading ? (
         <div>
           {/* TODO: Create Loading Component */}

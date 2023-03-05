@@ -1,0 +1,30 @@
+.paperClassName {
+    width: 250px;
+    background-color: var(--milestoneRowColor) !important;
+}
+
+.tag {
+    color: var(--defaultWhite);
+}
+
+.loading {
+    color: var(--defaultWhite) !important;
+}
+
+.clearIcon {
+    width: 0;
+}
+
+.input {
+    width: auto !important;
+}
+
+.root {
+    background-color: #363d68;
+    border-radius: 4px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px !important;
+}

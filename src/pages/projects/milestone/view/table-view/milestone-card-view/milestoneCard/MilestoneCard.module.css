@@ -17,10 +17,14 @@
     black 33%,
     rgba(255, 255, 255, 0.993) 0%
   ); */
-  background: linear-gradient(to right, #383e6d 50%, rgba(255, 255, 255, 0) 0%),
-    linear-gradient(#383e6d 50%, rgba(255, 255, 255, 0) 0%),
-    linear-gradient(to right, #383e6d 50%, rgba(255, 255, 255, 0) 0%),
-    linear-gradient(#383e6d 50%, rgba(255, 255, 255, 0) 0%);
+  background: linear-gradient(
+      to right,
+      #ffffff78 50%,
+      rgba(255, 255, 255, 0) 0%
+    ),
+    linear-gradient(#ffffff78 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(to right, #ffffff78 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(#ffffff78 50%, rgba(255, 255, 255, 0) 0%);
   background-position: top, right, bottom, left;
   background-repeat: repeat-x, repeat-y;
   background-size: 13px 2px, 2px 13px;
@@ -32,7 +36,8 @@
   flex-direction: column;
   justify-content: space-around;
   /* padding: 0.5em 1em; */
-  background-color: var(--projectCardBg);
+  /* background-color: var(--projectCardBg); */
+  border: 1px solid #ffffff78;
   border-radius: 10px;
   color: var(--defaultWhite);
   height: 100%;
@@ -59,7 +64,7 @@
   /* justify-content: center; */
   /* width: 100%; */
   /* align-items: center; */
-  flex:1
+  flex: 1;
 }
 
 .projectName {
@@ -150,37 +155,32 @@
   font-size: 0.8em !important;
 }
 
-
-
-.milestoneCard_ .milestoneSection2{
+.milestoneCard_ .milestoneSection2 {
   display: flex;
-  border: 1px dashed var(--divider);
+  border: 1px dashed #ffffff78;
   border-width: 1px 0px;
   margin: 0 0 10px 0;
 }
 
-
-.milestoneSection2 .milestoneSection2_innerSection{
-border-right: 1px dashed var(--divider);
-flex: 1;
-padding : 10px 10px;
+.milestoneSection2 .milestoneSection2_innerSection {
+  border-right: 1px dashed #ffffff78;
+  flex: 1;
+  padding: 10px 10px;
 }
 
-.milestoneSection2_innerSection2{
+.milestoneSection2_innerSection2 {
   flex: 0.5;
-border-right: 1px dashed var(--divider);
-padding : 10px 10px;
-
+  border-right: 1px dashed #ffffff78;
+  padding: 10px 10px;
 }
 
-.milestoneSection2_innerSection3{
+.milestoneSection2_innerSection3 {
   flex: 0.5;
 
-  padding : 10px 10px;
+  padding: 10px 10px;
 }
 
-
-.milestoneDisable{
+.milestoneDisable {
   opacity: 0.5;
   cursor: default;
 }

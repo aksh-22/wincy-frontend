@@ -1,8 +1,10 @@
-import { createInvoice } from "api/invoice";
+import { createInvoice, getInvoiceNumber } from "api/invoice";
+import CustomAutoComplete from "components/CustomAutoComplete";
 import CustomButton from "components/CustomButton";
 import CustomInput from "components/customInput/CustomInput";
 import CustomSelect from "components/CustomSelect";
 import SelectRenderComponent from "components/SelectRenderComponent";
+import SelectWithSelect from "components/select/SelectWithSelect";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
@@ -20,6 +22,9 @@ import { errorToast } from "utils/toast";
 import "./CreateInvoice.scss";
 import PopoverSelect from "./popoverSelect/PopoverSelect";
 import SelectCustomPopup from "./SelectCustomerPopup";
+import prePad from "utils/prePad";
+import generateInvoiceNumber from "utils/generateInvoiceNumber";
+import { ClipLoader } from "react-spinners";
 
 let selectPlaceHolder = {
   project: "Select Project",
@@ -34,14 +39,25 @@ let selectPlaceHolder = {
 function CreateInvoice() {
   const { currency } = useSelector((state) => state.userReducer?.userData);
 
-  const { data: projectData } = useProjects("Active");
+  const [invoiceNumberLoading, setInvoiceNumberLoading] = useState(false);
+
+  const { data: projectData, isLoading: projectLoading } =
+    useProjects("Active");
   const orgId = useSelector(
     (state) => state.userReducer?.selectedOrganisation?._id
   );
   const { data: accountList, isLoading: accountLoading } = useAccount({
     orgId,
   });
-  const { data: invoiceList } = useInvoice({ orgId });
+
+  const getInvoiceList = async (subId) => {
+    setInvoiceNumberLoading(true);
+    const inV = await getInvoiceNumber(orgId, subId);
+    setDetails((prev) => ({ ...prev, sNo: generateInvoiceNumber(inV) }));
+    setInvoiceNumberLoading(false);
+  };
+
+  // const { data: invoiceList } = useInvoice({ orgId });
 
   //   useEffect(() => {
 
@@ -57,12 +73,12 @@ function CreateInvoice() {
 
   const [details, setDetails] = useState({
     project: selectPlaceHolder.project,
-    paymentPhase: selectPlaceHolder.paymentPhase,
+    paymentPhase: [selectPlaceHolder.paymentPhase],
     // milestone:selectPlaceHolder.milestone,
     subsiduary: selectPlaceHolder.subCompany,
     currency: selectPlaceHolder.currency,
     sNo: "",
-    raisedOn: "",
+    raisedOn: moment().format("MM-DD-YYYY"),
     dueDate: "",
     totalAmount: "",
     customer: selectPlaceHolder.customer,
@@ -83,9 +99,7 @@ function CreateInvoice() {
     dueDate: "",
     services: [
       {
-        rate: "",
-        quantity: "",
-        description: "",
+        amount: "",
       },
     ],
     tax: [
@@ -94,15 +108,11 @@ function CreateInvoice() {
         taxedAmount: "",
       },
     ],
+    discountName: "",
+    discountedAmount: "",
   });
 
-  const [services, setServices] = useState([
-    {
-      rate: "",
-      quantity: "1",
-      description: "",
-    },
-  ]);
+  const [services, setServices] = useState([]);
   const [tax, setTax] = useState([
     {
       taxName: "",
@@ -117,16 +127,48 @@ function CreateInvoice() {
           ? null
           : details?.project?._id,
     });
+
   const { data: subsidiaryListData, isLoading: subsidiaryListLoading } =
     useSubsidiaryList({ orgId });
   const { data: customerList } = useCustomerList({ orgId });
 
   const onHandleChange = (event) => {
+    if (!details.currency) {
+      errorToast("Select currency of your project");
+      return;
+    }
     const { value, name } = event?.target;
-    setDetails({
-      ...details,
-      [name]: value,
-    });
+    if (name === "paymentPhase") {
+      const isEmpty = value[0] === selectPlaceHolder.paymentPhase;
+      let temp = value;
+
+      if (isEmpty) {
+        temp.splice(0, 1);
+      } else if (!!!value?.length) {
+        temp = [selectPlaceHolder.paymentPhase];
+      }
+      setDetails({
+        ...details,
+        [name]: temp,
+      });
+    } else if (name === "project") {
+      setDetails({
+        ...details,
+        [name]: value,
+        currency: value.paymentInfo.currency,
+      });
+    } else if (name === "subsiduary") {
+      setDetails({
+        ...details,
+        [name]: value,
+      });
+      getInvoiceList(value._id);
+    } else {
+      setDetails({
+        ...details,
+        [name]: value,
+      });
+    }
 
     error[name] &&
       setError({
@@ -135,14 +177,35 @@ function CreateInvoice() {
       });
   };
 
-  const onChangeService = (event, index) => {
+  const onChangeProject = (_, value) => {
+    if (value) {
+      setDetails({
+        ...details,
+        project: value,
+        currency: value.paymentInfo.currency,
+      });
+    } else {
+      setDetails({
+        ...details,
+        project: selectPlaceHolder.project,
+        currency: "",
+        paymentPhase: [selectPlaceHolder.paymentPhase],
+      });
+    }
+    error.project && setError((prev) => ({ ...prev, project: "" }));
+  };
+
+  const onChangeService = (event, index, id) => {
     const { name, value } = event?.target;
     let temp = [...services];
-    temp[index][name] = value;
+    temp[index] = {
+      paymentPhaseId: id,
+      amount: value,
+    };
     setServices(temp);
     let tempError = error;
-    if (error?.services[index][name]) {
-      tempError.services[index][name] = "";
+    if (error?.services[index]?.amount) {
+      tempError.services[index].amount = "";
       setError({
         ...tempError,
       });
@@ -154,6 +217,9 @@ function CreateInvoice() {
       ...details,
       customer: customerData,
     });
+    let tempError = { ...error };
+    tempError.customer = "";
+    setError(tempError);
   };
 
   const onHandleTaxChange = (event, index) => {
@@ -192,7 +258,7 @@ function CreateInvoice() {
         project: "Project is required.",
       };
     }
-    if (paymentPhase === selectPlaceHolder.paymentPhase) {
+    if (paymentPhase[0] === selectPlaceHolder.paymentPhase) {
       isError = true;
       tempError = {
         ...tempError,
@@ -207,13 +273,13 @@ function CreateInvoice() {
         sNo: "Invoice number is required.",
       };
     }
-    if (invoiceList?.find((item) => item?.sNo === sNo)) {
-      isError = true;
-      tempError = {
-        ...tempError,
-        sNo: "Invoice number is already exist.",
-      };
-    }
+    // if (invoiceList?.includes(sNo)) {
+    //     isError = true;
+    //     tempError = {
+    //         ...tempError,
+    //         sNo: 'Invoice number is already exist.',
+    //     };
+    // }
 
     if (subsiduary === selectPlaceHolder.subCompany) {
       isError = true;
@@ -263,61 +329,89 @@ function CreateInvoice() {
       };
     }
 
-    services?.map((item, index) => {
-      if (!item?.description?.trim()?.length) {
-        let isTemp = [...tempError.services];
+    details.paymentPhase?.forEach((el, i) => {
+      if (
+        (Number(services[i]?.amount) < 1 || !Number(services[i]?.amount)) &&
+        el.dueAmount > 0
+      ) {
+        tempError.services[i] = { amount: "Amount is required" };
         isError = true;
-        isTemp[index].description = "Description field is required.";
-        tempError = {
-          ...tempError,
-          services: isTemp,
-        };
       }
-
-      tax?.map((item, index) => {
-        if (item?.taxName?.trim()?.length && !item?.taxedAmount) {
-          let isTemp = [...tempError.tax];
-          isError = true;
-          isTemp[index].taxedAmount = "Tax amount field is required.";
-          tempError = {
-            ...tempError,
-            tax: isTemp,
-          };
-        }
-
-        if (!item?.taxName?.trim()?.length && item?.taxedAmount) {
-          let isTemp = [...tempError.tax];
-          isError = true;
-          isTemp[index].taxName = "Tax name field is required.";
-          tempError = {
-            ...tempError,
-            tax: isTemp,
-          };
-        }
-        return null;
-      });
-
-      if (!item?.quantity?.trim()?.length) {
-        let isTemp = [...tempError.services];
-        isError = true;
-        isTemp[index].quantity = "Quantity field is required.";
-        tempError = {
-          ...tempError,
-          services: isTemp,
-        };
-      }
-
-      if (!item?.rate?.trim()?.length) {
-        let isTemp = [...tempError.services];
-        isError = true;
-        isTemp[index].rate = "Rate field is required.";
-        tempError = {
-          ...tempError,
-          services: isTemp,
-        };
-      }
-      return null;
     });
+
+    tax.forEach((el, i) => {
+      if (el.taxName && el.taxedAmount < 1) {
+        tempError.tax[i] = { taxedAmount: "Tax amount is required" };
+        isError = true;
+      } else if (!el.taxName && el.taxedAmount > 0) {
+        tempError.tax[i] = { taxName: "Tax name is required" };
+        isError = true;
+      }
+    });
+
+    if (details.discountName && Number(details.discountedAmount < 1)) {
+      tempError.discountedAmount = "Discount amount is required";
+      isError = true;
+    } else if (!details.discountName && Number(details.discountedAmount > 0)) {
+      tempError.discountName = "Discount name is required";
+      isError = true;
+    }
+
+    // services?.map((item, index) => {
+    //     if (!item?.description?.trim()?.length) {
+    //         let isTemp = [...tempError.services];
+    //         isError = true;
+    //         isTemp[index].description = 'Description field is required.';
+    //         tempError = {
+    //             ...tempError,
+    //             services: isTemp,
+    //         };
+    //     }
+
+    //     tax?.map((item, index) => {
+    //         if (item?.taxName?.trim()?.length && !item?.taxedAmount) {
+    //             let isTemp = [...tempError.tax];
+    //             isError = true;
+    //             isTemp[index].taxedAmount = 'Tax amount field is required.';
+    //             tempError = {
+    //                 ...tempError,
+    //                 tax: isTemp,
+    //             };
+    //         }
+
+    //         if (!item?.taxName?.trim()?.length && item?.taxedAmount) {
+    //             let isTemp = [...tempError.tax];
+    //             isError = true;
+    //             isTemp[index].taxName = 'Tax name field is required.';
+    //             tempError = {
+    //                 ...tempError,
+    //                 tax: isTemp,
+    //             };
+    //         }
+    //         return null;
+    //     });
+
+    //     if (!item?.quantity?.trim()?.length) {
+    //         let isTemp = [...tempError.services];
+    //         isError = true;
+    //         isTemp[index].quantity = 'Quantity field is required.';
+    //         tempError = {
+    //             ...tempError,
+    //             services: isTemp,
+    //         };
+    //     }
+
+    //     if (!item?.rate?.trim()?.length) {
+    //         let isTemp = [...tempError.services];
+    //         isError = true;
+    //         isTemp[index].rate = 'Rate field is required.';
+    //         tempError = {
+    //             ...tempError,
+    //             services: isTemp,
+    //         };
+    //     }
+    //     return null;
+    // });
 
     setError(tempError);
     if (isError) {
@@ -361,16 +455,18 @@ function CreateInvoice() {
     //   }
     //   return null;
     // })
+
     setIsLoading(true);
+
+    // delete obj.paymentPhase;
 
     createInvoice({
       orgId,
       projectId: details?.project?._id,
-      paymentPhaseId: details?.paymentPhase?._id,
       data: JSON.parse(JSON.stringify(obj, (k, v) => v || undefined)),
     })
       .then((res) => {
-        let invoiceList = query.getQueryData(["invoice", orgId , null, null]);
+        let invoiceList = query.getQueryData(["invoice", orgId, null, null]);
         invoiceList?.unshift({
           ...res?.invoice,
         });
@@ -378,7 +474,7 @@ function CreateInvoice() {
           query.setQueryData(["invoice", orgId, null, null], invoiceList);
           goBack();
         } catch (err) {
-          goBack();
+          // goBack();
         }
       })
       .finally(() => {
@@ -393,7 +489,7 @@ function CreateInvoice() {
   useEffect(() => {
     let subTotal = 0;
     services?.map((item) => {
-      subTotal += Number(item?.quantity) * Number(item?.rate).toFixed(2);
+      subTotal += Number(item?.amount);
       return null;
     });
     let totalTax = 0;
@@ -418,32 +514,50 @@ function CreateInvoice() {
         <p className="create_invoice_heading">Project Information</p>
 
         <div className="d_flex">
-          <CustomSelect
-            menuItems={projectData?.projects ?? []}
-            selectRenderComponent={<SelectRenderComponent />}
-            menuRenderComponent={<SelectRenderComponent />}
-            handleChange={onHandleChange}
-            value={details?.project?.title ?? selectPlaceHolder?.project}
+          <SelectWithSelect
+            options={projectData?.projects ?? []}
+            loading={projectLoading}
+            className="selectOutlined flex mr-4"
             placeholder={selectPlaceHolder.project}
+            labelClassName="normalFont"
+            onChange={onChangeProject}
             name="project"
+            value={
+              Array.isArray(details?.project) ? details?.project : undefined
+            }
             errorText={error?.project}
-            variant={"outlined"}
-            labelClassName={"normalFont"}
-            containerClassName="selectOutlined flex mr-4"
+            // labelKey
           />
+          {/* <CustomSelect
+                        menuItems={projectData?.projects ?? []}
+                        selectRenderComponent={<SelectRenderComponent />}
+                        menuRenderComponent={<SelectRenderComponent />}
+                        handleChange={onHandleChange}
+                        value={
+                            details?.project?.title ??
+                            selectPlaceHolder?.project
+                        }
+                        placeholder={selectPlaceHolder.project}
+                        name='project'
+                        errorText={error?.project}
+                        variant={'outlined'}
+                        labelClassName={'normalFont'}
+                        containerClassName='selectOutlined flex mr-4'
+                    /> */}
           <CustomSelect
             menuItems={paymentPhaseData ?? []}
             selectRenderComponent={<SelectRenderComponent />}
             menuRenderComponent={<SelectRenderComponent />}
+            multiple
             handleChange={onHandleChange}
             value={details?.paymentPhase}
-            placeholder={selectPlaceHolder.paymentPhase}
             name="paymentPhase"
             errorText={error?.paymentPhase}
             variant={"outlined"}
             labelClassName={"normalFont"}
             containerClassName="selectOutlined flex"
             isLoading={paymentPhaseLoading}
+            placeholder={selectPlaceHolder.paymentPhase}
           />
           <div className="flex" />
         </div>
@@ -464,28 +578,6 @@ function CreateInvoice() {
         <p className="create_invoice_heading">Payment Information</p>
 
         <div className="d_flex flexWrap">
-          <div className="flex mr-4">
-            <div className="invoice_number" style={{ marginRight: 0 }}>
-              <div className="invoice_number_back">#</div>
-
-              <input
-                type="text"
-                placeholder="Invoice Number"
-                name="sNo"
-                value={details?.sNo}
-                onChange={onHandleChange}
-              />
-            </div>
-            <p
-              style={{
-                color: "var(--red)",
-                fontSize: 12,
-              }}
-            >
-              {error?.sNo}
-            </p>
-          </div>
-
           <CustomSelect
             menuItems={subsidiaryListData ?? []}
             selectRenderComponent={<SelectRenderComponent />}
@@ -500,17 +592,48 @@ function CreateInvoice() {
             containerClassName="selectOutlined flex mr-4"
             isLoading={subsidiaryListLoading}
           />
-          <CustomSelect
-            placeholder={selectPlaceHolder.currency}
-            menuItems={currency ?? []}
-            errorText={error?.currency}
-            value={details?.currency}
-            name="currency"
-            variant={"outlined"}
-            handleChange={onHandleChange}
-            labelClassName={"normalFont"}
-            containerClassName="selectOutlined flex"
-          />
+          <div className="flex mr-4">
+            <div className="invoice_number" style={{ marginRight: 0 }}>
+              <div className="invoice_number_back">#</div>
+
+              <input
+                type="text"
+                placeholder="Invoice Number"
+                name="sNo"
+                value={details?.sNo}
+                onChange={onHandleChange}
+              />
+              {invoiceNumberLoading && (
+                <div>
+                  <ClipLoader
+                    loading={invoiceNumberLoading}
+                    color="red"
+                    size={26}
+                  />
+                </div>
+              )}
+            </div>
+            <p
+              style={{
+                color: "var(--red)",
+                fontSize: 12,
+              }}
+            >
+              {error?.sNo}
+            </p>
+          </div>
+
+          {/* <CustomSelect
+                        placeholder={selectPlaceHolder.currency}
+                        menuItems={currency ?? []}
+                        errorText={error?.currency}
+                        value={details?.currency}
+                        name='currency'
+                        variant={'outlined'}
+                        handleChange={onHandleChange}
+                        labelClassName={'normalFont'}
+                        containerClassName='selectOutlined flex'
+                    /> */}
         </div>
 
         <div className="alignCenter mt-2">
@@ -525,6 +648,9 @@ function CreateInvoice() {
                   ...details,
                   raisedOn: value,
                 });
+                let tempError = { ...error };
+                tempError.raisedOn = "";
+                setError(tempError);
               }}
               error={error?.raisedOn}
             />
@@ -541,6 +667,9 @@ function CreateInvoice() {
                   ...details,
                   dueDate: value,
                 });
+                let tempError = { ...error };
+                tempError.dueDate = "";
+                setError(tempError);
               }}
               error={error?.dueDate}
             />
@@ -631,97 +760,93 @@ function CreateInvoice() {
       <div className="invoice_service_container">
         <div className="invoice_service_header">
           <p>Services</p>
-          <p className="textCenter">Quantity</p>
-          <p className="textCenter">Rate</p>
-          <p className="textCenter pl-1">Amount</p>
+          {/* <p className='textCenter'>Quantity</p> */}
+          <p className="textCenter">Due Amount</p>
+          <p className="textCenter">Amount</p>
         </div>
-
-        {services?.map((item, index) => (
-          <div className="invoice_service_row" key={index}>
-            <CustomInput
-              placeholder={"Description of service"}
-              className="mr-2"
-              value={item?.description}
-              name="description"
-              onChange={(event) => onChangeService(event, index)}
-              error={error?.services[index]?.description}
-            />
-            <CustomInput
-              placeholder={"Quantity"}
-              className="mr-2"
-              value={item?.quantity}
-              name="quantity"
-              onChange={(event) => onChangeService(event, index)}
-              error={error?.services[index]?.quantity}
-            />
-            <CustomInput
-              placeholder={"0"}
-              className="mr-2"
-              value={item?.rate}
-              name="rate"
-              onChange={(event) => onChangeService(event, index)}
-              error={error?.services[index]?.rate}
-            />
-
-            <p className="alignCenter textEllipse">
-            {currencySymbol(details?.currency)}
-              <span className="textEllipse">
-                {Number(item?.quantity) * Number(item?.rate).toFixed(2)}
-              </span>
-            </p>
-          </div>
-        ))}
-
-        {services?.length > 1 && (
-          <CustomButton
-            className={"mr-1"}
-            onClick={() => {
-              let temp = [...services];
-              temp.pop();
-              let tempError = [...error.services];
-              tempError.pop();
-              setError({
-                ...error,
-                services: tempError,
-              });
-              setServices(temp);
-            }}
-          >
-            Remove
-          </CustomButton>
+        {details.paymentPhase[0].title ? (
+          details.paymentPhase?.map((item, index) => (
+            <div className="invoice_service_row" key={index}>
+              <div>
+                <p>{item?.title}</p>
+                <span
+                  style={{
+                    fontSize: 15,
+                    color: "var(--progressBarBgColor)",
+                  }}
+                >
+                  {item?.description}
+                </span>
+              </div>
+              <p className="alignCenter">
+                {currencySymbol(details?.currency)}
+                <span className="textEllipse">{item.dueAmount}</span>
+              </p>
+              <CustomInput
+                placeholder={"0"}
+                className="mr-2"
+                value={item?.rate}
+                name="rate"
+                onChange={(event) => onChangeService(event, index, item._id)}
+                error={error?.services[index]?.amount}
+              />
+            </div>
+          ))
+        ) : (
+          <p className="textCenter m-2">Select a payment phase</p>
         )}
-        <CustomButton
-          backgroundColor={"var(--yellow)"}
-          onClick={() => {
-            let temp = [...services];
-            let tempError = [...error.services];
-            temp.push({
-              rate: "",
-              quantity: "1",
-              description: "",
-            });
-            tempError.push({
-              rate: "",
-              quantity: "",
-              description: "",
-            });
-            setError({
-              ...error,
-              services: [...tempError],
-            });
-            setServices(temp);
-          }}
-        >
-          Add Service
-        </CustomButton>
+        {/* {services?.length > 1 && (
+                    <CustomButton
+                        className={'mr-1'}
+                        onClick={() => {
+                            let temp = [...services];
+                            temp.pop();
+                            let tempError = [...error.services];
+                            tempError.pop();
+                            setError({
+                                ...error,
+                                services: tempError,
+                            });
+                            setServices(temp);
+                        }}
+                    >
+                        Remove
+                    </CustomButton>
+                )}
+                <CustomButton
+                    backgroundColor={'var(--yellow)'}
+                    onClick={() => {
+                        let temp = [...services];
+                        let tempError = [...error.services];
+                        temp.push({
+                            rate: '',
+                            quantity: '1',
+                            description: '',
+                        });
+                        tempError.push({
+                            rate: '',
+                            quantity: '',
+                            description: '',
+                        });
+                        setError({
+                            ...error,
+                            services: [...tempError],
+                        });
+                        setServices(temp);
+                    }}
+                >
+                    Add Service
+                </CustomButton> */}
       </div>
-
       <div className="invoiceTotal mt-2">
         <div className="alignCenter">
           <div style={{ flex: 0.7 }} />
           <div className="alignCenter" style={{ flex: 0.3 }}>
             <p className="flex ff_Lato_Bold">Sub Total</p>
-            <p className="amountText">{currencySymbol(details?.currency)}{total?.subTotal?.toFixed(2)} </p>
+            <p className="amountText">
+              {currencySymbol(details?.currency)}
+              {total?.subTotal?.toFixed(2)}{" "}
+            </p>
           </div>
         </div>
 
@@ -809,8 +934,18 @@ function CreateInvoice() {
                 value={details?.discountName}
                 name="discountName"
                 onChange={onHandleChange}
+                error={error.discountName}
               />
             </div>
+            {/* <CustomInput
+                                type='number'
+                                className={'mr-2'}
+                                placeholder='0.00'
+                                value={details?.discountedAmount}
+                                name='discountedAmount'
+                                onChange={onHandleChange}
+                                error={error.discountedAmount}
+                            /> */}
             <div className="invoice_number">
               <input
                 type="number"
@@ -823,7 +958,10 @@ function CreateInvoice() {
               />
               <div
                 className="invoice_number_back"
-                style={{ background: "transparent", color: "#363D68" }}
+                style={{
+                  background: "transparent",
+                  color: "#363D68",
+                }}
               >
                 +
               </div>
@@ -835,7 +973,10 @@ function CreateInvoice() {
           <div style={{ flex: 0.7 }} />
           <div className="alignCenter" style={{ flex: 0.3 }}>
             <p className="flex ff_Lato_Bold">Total</p>
-            <p className="amountText">{currencySymbol(details?.currency)}{total?.total?.toFixed(2)} </p>
+            <p className="amountText">
+              {currencySymbol(details?.currency)}
+              {total?.total?.toFixed(2)}{" "}
+            </p>
           </div>
         </div>
       </div>

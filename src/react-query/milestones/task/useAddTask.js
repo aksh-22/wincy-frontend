@@ -25,14 +25,14 @@ export const useAddTask = () => {
 
     onSuccess: (newData, localData, context) => {
       try {
-        const { orgId, milestoneId, data, projectId, parentId } = localData;
+        const { orgId, milestoneId, data, projectId, parentId, moduleId } =
+          localData;
         const { previousTasksCopy, index, uniqueId, previousSubTaskCopy } =
           context;
         if (parentId) {
           let tempIndex = previousSubTaskCopy?.tasks?.findIndex(
             (item) => item?._id === uniqueId
           );
-          console.log({ tempIndex });
           if (tempIndex >= 0) {
             previousSubTaskCopy.tasks[tempIndex] = {
               ...newData?.task,
@@ -44,6 +44,27 @@ export const useAddTask = () => {
             ["subTask", orgId, milestoneId, parentId],
             previousSubTaskCopy
           );
+          const previousTasks = queryClient.getQueryData([
+            "tasks",
+            orgId,
+            milestoneId,
+          ]);
+          let moduleIndex = previousTasks?.findIndex((item) =>
+            item?._id?.includes(moduleId)
+          );
+          if (moduleIndex >= 0) {
+            let taskIndex = previousTasks?.[moduleIndex].tasks?.findIndex(
+              (item) => item?._id === parentId
+            );
+            previousTasks?.[moduleIndex].tasks?.[taskIndex]?.childTasks?.push(
+              newData?.task?._id
+            );
+            queryClient.setQueryData(
+              ["tasks", orgId, milestoneId],
+              previousTasks
+            );
+          }
+          console.log({ previousTasks, newData, localData });
         } else {
           if (index === null) {
             let tempTask = previousTasksCopy[previousTasksCopy?.length - 1];

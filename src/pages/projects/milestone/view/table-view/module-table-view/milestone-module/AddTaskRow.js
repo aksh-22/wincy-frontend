@@ -25,6 +25,8 @@ function AddTaskRow({
   disabled,
   style,
   taskId,
+  isTaskLastIndex,
+  moduleId,
 }) {
   const queryClient = useQueryClient();
   const { platforms, team } = useProjectTeam();
@@ -102,7 +104,7 @@ function AddTaskRow({
     let data = {
       data: {
         ...taskDetails,
-        module: moduleInfo?._id,
+        module: moduleInfo?._id ?? moduleId,
         parent: taskId,
       },
       orgId,
@@ -111,6 +113,7 @@ function AddTaskRow({
       moduleInfo,
       callBack: clearDetails,
       parentId: taskId,
+      moduleId,
     };
     mutate(data);
   };
@@ -145,16 +148,35 @@ function AddTaskRow({
         if (!assigneePopup && !dueDatePopup && !platformPopup) setIsEdit(false);
       }}
     >
-      {!isEdit ? (
+      <div className={`${taskId && !isTaskLastIndex && "pb-5"}`}>
         <div
-          className="tableRowModule addRowModule "
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsEdit(true);
+          className={`${taskId && "abc "} `}
+          style={{
+            marginLeft: taskId ? 0 : 1,
           }}
         >
-          <div className="d_flex ">
+          {!isEdit ? (
+            <div
+              className={`tableRowModuleHeader   border_divider `}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsEdit(true);
+              }}
+              // style={{ background: "var(--milestoneRowElColor)" }}
+              style={{
+                borderRight: "1px solid #3d4368",
+                background: "var(--milestoneRowElColor)",
+              }}
+            >
+              <div className="row_starter"></div>
+              <div className="pl-2">+Add</div>
+              <div />
+              <div />
+
+              <div />
+
+              {/* <div className="d_flex ">
             <div className="firstEmptyCell" />
             <div className="sideLine" />
             <p className="alignCenter pl-1 borderBottom flex"> +Add</p>
@@ -162,144 +184,165 @@ function AddTaskRow({
           <div className="borderBottom" />
           <div className="borderBottom" />
           <div className="borderBottom" />
-          <div className="borderRight" />
-        </div>
-      ) : (
-        <div className="tableRowModule " style={style}>
-          <div className="d_flex flex">
-            <div className="firstEmptyCell" onClick={() => setIsEdit(false)} />
+          <div className="borderRight" /> */}
+            </div>
+          ) : (
             <div
-              className="d_flex flex"
+              className={`tableRowModuleHeader
+               ${
+                 !!!platformsList?.length &&
+                 "tableRowModuleHeader_withoutPlatform"
+               }
+              `}
               style={{
-                position: "relative",
+                borderRight: "1px solid #3d4368",
+
+                ...style,
               }}
             >
-              <div
-                className="sideLine"
-                style={{
-                  background: error ? "var(--red)" : "",
-                }}
-              />
-              <input
-                placeholder="Task Title"
-                autoFocus
-                className="pl-1"
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    onSubmit();
-                  }
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setAssigneePopup(false);
-                  setDueDatePopup(false);
-                  setPlatformPopup(false);
-                }}
-                value={taskDetails?.title}
-                onChange={(e) => {
-                  setTaskDetails({
-                    ...taskDetails,
-                    title: e.target.value,
-                  });
-                  setError("");
-                }}
-                style={{
-                  height: 40,
-                  borderColor: error ? "var(--red)" : "",
-                }}
-              />
-              {error && (
-                <LightTooltip title={error} arrow>
+              <div className="row_starter"></div>
+              <div />
+              <div className="d_flex flex">
+                {/* <div
+                className="firstEmptyCell"
+                onClick={() => setIsEdit(false)}
+              /> */}
+                <div
+                  className="d_flex flex"
+                  style={{
+                    position: "relative",
+                  }}
+                >
                   <div
+                    className="sideLine"
                     style={{
-                      position: "absolute",
-                      top: "55%",
-                      right: 5,
-                      transform: "translateY(-50%)",
+                      background: error ? "var(--red)" : "",
                     }}
-                  >
-                    <ErrorIcon
-                      style={{
-                        color: "var(--red)",
-                      }}
-                    />
-                  </div>
-                </LightTooltip>
-              )}
-            </div>
-          </div>
-          <ClickAwayListener onClickAway={() => setAssigneePopup(true)}>
-            <div
-              className="alignCenter justifyContent_center borderRight"
-              onClick={() => setAssigneePopup(true)}
-            >
-              {/* <LightTooltip title="Add Assignee" arrow>
+                  />
+                  <input
+                    placeholder="Task Title"
+                    autoFocus
+                    className="pl-1"
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        onSubmit();
+                      }
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setAssigneePopup(false);
+                      setDueDatePopup(false);
+                      setPlatformPopup(false);
+                    }}
+                    value={taskDetails?.title}
+                    onChange={(e) => {
+                      setTaskDetails({
+                        ...taskDetails,
+                        title: e.target.value,
+                      });
+                      setError("");
+                    }}
+                    style={{
+                      height: 40,
+                      borderColor: error ? "var(--red)" : "",
+                    }}
+                  />
+                  {error && (
+                    <LightTooltip title={error} arrow>
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "55%",
+                          right: 5,
+                          transform: "translateY(-50%)",
+                        }}
+                      >
+                        <ErrorIcon
+                          style={{
+                            color: "var(--red)",
+                          }}
+                        />
+                      </div>
+                    </LightTooltip>
+                  )}
+                </div>
+              </div>
+              <ClickAwayListener onClickAway={() => setAssigneePopup(true)}>
+                <div
+                  className="alignCenter justifyContent_center borderRight"
+                  onClick={() => setAssigneePopup(true)}
+                >
+                  {/* <LightTooltip title="Add Assignee" arrow>
               <div>
                 <Icon name="addRound" />
               </div>
             </LightTooltip> */}
-              <AssigneeSelection
-                assignee={taskDetails?.assignee}
-                multiple
-                team={team}
-                onChange={handleAssignee}
-                contentCenter
-                disabled={disabled}
-              />
-            </div>
-          </ClickAwayListener>
-          <ClickAwayListener onClickAway={() => setDueDatePopup(false)}>
-            <div
-              className="alignCenter justifyContent_center borderRight"
-              onClick={() => setDueDatePopup(true)}
-            >
-              <CustomDatePicker
-                // minDate={new Date()}
-                onChange={dateChanger}
-                defaultValue={taskDetails?.dueDate}
-                disabled={disabled}
-              >
-                {taskDetails?.dueDate ? (
-                  <div>{dateCondition(taskDetails?.dueDate)}</div>
-                ) : (
-                  <LightTooltip title="Add Due Date" arrow>
-                    <div>
-                      <Icon name="calendar" />
-                    </div>
-                  </LightTooltip>
-                )}
-              </CustomDatePicker>
-            </div>
-          </ClickAwayListener>
-          <ClickAwayListener onClickAway={() => setPlatformPopup(false)}>
-            <div className="alignCenter justifyContent_center borderBottom">
-              <CustomMenu
-                activeMenuItem={taskDetails?.platforms}
-                menuItems={platformsList ?? []}
-                multiple
-                handleMenuClick={(value) => {
-                  setTaskDetails({ ...taskDetails, platforms: value });
-                }}
-                disabled={disabled}
-              />
-            </div>
-          </ClickAwayListener>
-          <div className="alignCenter justifyContent_center borderRight">
-            <LightTooltip title="Add Task" arrow>
-              <div className="cursorPointer mr-1" onClick={onSubmit}>
-                <Icon name="check" />
-              </div>
-            </LightTooltip>
+                  <AssigneeSelection
+                    assignee={taskDetails?.assignee}
+                    multiple
+                    team={team}
+                    onChange={handleAssignee}
+                    contentCenter
+                    disabled={disabled}
+                  />
+                </div>
+              </ClickAwayListener>
+              <ClickAwayListener onClickAway={() => setDueDatePopup(false)}>
+                <div
+                  className="alignCenter justifyContent_center borderRight"
+                  onClick={() => setDueDatePopup(true)}
+                >
+                  <CustomDatePicker
+                    // minDate={new Date()}
+                    onChange={dateChanger}
+                    defaultValue={taskDetails?.dueDate}
+                    disabled={disabled}
+                  >
+                    {taskDetails?.dueDate ? (
+                      <div>{dateCondition(taskDetails?.dueDate)}</div>
+                    ) : (
+                      <LightTooltip title="Add Due Date" arrow>
+                        <div>
+                          <Icon name="calendar" />
+                        </div>
+                      </LightTooltip>
+                    )}
+                  </CustomDatePicker>
+                </div>
+              </ClickAwayListener>
+              {!!platformsList?.length && (
+                <ClickAwayListener onClickAway={() => setPlatformPopup(false)}>
+                  <div className="alignCenter justifyContent_center borderBottom">
+                    <CustomMenu
+                      activeMenuItem={taskDetails?.platforms}
+                      menuItems={platformsList ?? []}
+                      multiple
+                      handleMenuClick={(value) => {
+                        setTaskDetails({ ...taskDetails, platforms: value });
+                      }}
+                      disabled={disabled}
+                    />
+                  </div>
+                </ClickAwayListener>
+              )}
+              <div className="alignCenter justifyContent_center borderRight">
+                <LightTooltip title="Add Task" arrow>
+                  <div className="cursorPointer mr-1" onClick={onSubmit}>
+                    <Icon name="check" />
+                  </div>
+                </LightTooltip>
 
-            <LightTooltip title="Esc" arrow>
-              <div onClick={clearDetails} className="cursorPointer">
-                <Icon name="cross" />
+                <LightTooltip title="Esc" arrow>
+                  <div onClick={clearDetails} className="cursorPointer">
+                    <Icon name="cross" />
+                  </div>
+                </LightTooltip>
               </div>
-            </LightTooltip>
-          </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </ClickAwayListener>
   );
 }

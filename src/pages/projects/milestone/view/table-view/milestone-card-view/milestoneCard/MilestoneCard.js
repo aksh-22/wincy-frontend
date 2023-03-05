@@ -171,7 +171,6 @@ const MilestoneCard = memo(({ info, id, projectId, disabled, orgId }) => {
             // className={`mr-1 mb-05    ${'ff_Lato_Regular'}`}
           />
         </div>
-
         <div className={classes.milestoneSection2}>
           <div className={classes.milestoneSection2_innerSection}>
             <CustomDatePicker
@@ -232,21 +231,22 @@ const MilestoneCard = memo(({ info, id, projectId, disabled, orgId }) => {
                 name="taskIcon"
                 style={{ height: 15, width: 15, marginLeft: 3 }}
               />
-              {console.log(info?.taskCount?.OnHold ? info : "")}
+
               <p style={{ fontSize: 13, marginLeft: 7 }}>
-                {(info?.taskCount?.NotStarted ?? 0) +
+                {/* {(info?.taskCount?.NotStarted ?? 0) +
                   (info?.taskCount?.Active ?? 0) +
                   (info?.taskCount?.Completed ?? 0) +
                   (info?.taskCount?.UnderReview ?? 0) +
                   (info?.taskCount?.ReviewFailed ?? 0) +
                   (info?.taskCount?.WaitingForReview ?? 0) +
-                  (info?.taskCount?.OnHold ?? 0)}
+                  (info?.taskCount?.OnHold ?? 0)} */}
+                {taskCount(info?.taskCount)}
               </p>
             </div>
           </div>
         </div>
         <div className="px-1 pb-1">
-          <CustomProgressBar value={getProjectProgress(info?.taskCount)} />
+          <CustomProgressBar value={taskCount(info?.taskCount, true)} />
         </div>
         {/* <div className={classes.projectBox__header}>
             <div
@@ -376,3 +376,22 @@ const MilestoneCard = memo(({ info, id, projectId, disabled, orgId }) => {
 });
 
 export default MilestoneCard;
+
+const taskCount = (taskCount, percentage) => {
+  if (!taskCount) {
+    return 0;
+  }
+  let count = 0;
+  for (let keys in taskCount) {
+    count += taskCount[keys];
+  }
+
+  if (percentage) {
+    count =
+      (taskCount?.Completed /
+        // + (taskCount?.OnHold || 0)
+        (count || 1)) *
+      100;
+  }
+  return count;
+};

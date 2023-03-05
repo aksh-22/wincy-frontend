@@ -31,3 +31,57 @@ grid-template-columns: 1fr 0.2fr 0.3fr 0.3fr 0.4fr;
     border-bottom: 1px solid #191b34;
   }
 }
+
+.invoiceList{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  padding-left: 15px;
+
+  p{
+    // text-align: center;
+  }
+}
+
+.linkedInvoiceList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  padding-left: 15px;
+
+  p {
+    // text-align: center;
+  }
+}
+
+.invoiceListRow{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding-left: 10px;
+      margin-top: 20px;
+      
+      p{
+        border: .5px solid rgba(251, 248, 248, 0.511);
+        padding: 5px;
+       
+      }
+}
+
+.linkedInvoiceListRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding-left: 10px;
+  margin-top: 20px;
+
+  p {
+    border: .5px solid rgba(251, 248, 248, 0.511);
+    padding: 5px;
+
+  }
+}
+
+.paymentPhaseTotalText{
+  font-weight: bolder;
+}

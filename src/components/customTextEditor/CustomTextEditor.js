@@ -2,19 +2,11 @@ import CustomButton from "components/CustomButton";
 import JoditEditor from "jodit-react";
 import React, { useState } from "react";
 import classes from "./CustomTextEditor.module.css";
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { LightTooltip } from "components/tooltip/LightTooltip";
 
 const CustomTextEditor = React.forwardRef(
-  (
-    {
-      disable,
-      value,
-      theme,
-      updateData,
-    },
-    ref
-  ) => {
+  ({ disable, value = "", theme, updateData }, ref) => {
     const [showEditor, setShowEditor] = useState(false);
     const config = {
       readonly: false, // all options from https://xdsoft.net/jodit/doc/
@@ -52,17 +44,20 @@ const CustomTextEditor = React.forwardRef(
     };
     return (
       <div>
-        {!showEditor &&
-            <div className="alignCenter justifyContent_end mb-05">
-        {
-          !disable &&   <div className="cursorPointer" onClick={() => !disable && setShowEditor(true)}>
-          <LightTooltip title="Edit" arrow>
-        <EditRoundedIcon />
-          </LightTooltip>
-            </div>
-        }
-        </div>
-        }
+        {!showEditor && (
+          <div className="alignCenter justifyContent_end mb-05">
+            {!disable && (
+              <div
+                className="cursorPointer"
+                onClick={() => !disable && setShowEditor(true)}
+              >
+                <LightTooltip title="Edit" arrow>
+                  <EditRoundedIcon />
+                </LightTooltip>
+              </div>
+            )}
+          </div>
+        )}
         {showEditor ? (
           <div>
             <JoditEditor
@@ -120,7 +115,7 @@ const CustomTextEditor = React.forwardRef(
                   ? !disable
                     ? "<p>Click edit icon to add description</p>"
                     : "<p>No description available</p>"
-                  : value,
+                  : value?.split("<a").join('<a target="_blank"'),
             }}
           />
         )}

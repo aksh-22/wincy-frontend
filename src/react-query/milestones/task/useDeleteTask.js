@@ -24,6 +24,15 @@ export const useDeleteTask = () => {
       }
     },
 
+    onSuccess: async (data, localData) => {
+      try {
+        const { milestoneId, orgId, onToggle, handleClose } = localData;
+        await queryClient.invalidateQueries(["tasks", orgId, milestoneId]);
+        handleClose && handleClose();
+        onToggle && onToggle();
+      } catch (error) {}
+    },
+
     onError: (error, localData, context) => {
       const { milestoneId, projectId, orgId, type } = localData;
       const { previousTasks, previousProject, subTasksData } = context;
@@ -72,8 +81,8 @@ const onSubTaskDeleteLogic = async ({ localData, queryClient }) => {
     );
   }
 
-  handleClose && handleClose();
-  onToggle && onToggle();
+  // handleClose && handleClose();
+  // onToggle && onToggle();
   return {
     subTasksData: temp,
   };
@@ -227,8 +236,8 @@ const onTaskDeleteLogic = ({ localData, queryClient }) => {
     ["milestones", orgId, projectId],
     prevMilestonesCopy
   );
-  handleClose && handleClose();
-  onToggle && onToggle();
+  // handleClose && handleClose();
+  // onToggle && onToggle();
 
   return { previousTasks, previousProject };
 };

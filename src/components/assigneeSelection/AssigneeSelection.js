@@ -34,14 +34,14 @@ function AssigneeSelection({
   contentCenter,
   labelClassName,
   taskInfo,
-  widthAuto
+  widthAuto,
 }) {
   const userType = useSelector((state) => state.userReducer?.userType);
   const { data } = useOrganisationUsers(orgId, projectId);
   const [assigneeWithStatus, setAssigneeWithStatus] = useState(null);
   useEffect(() => {
     if (taskInfo?.assigneesStatus) {
-       let temp = assignee ? [...assignee] : [];
+      let temp = assignee ? [...assignee] : [];
       let obj = {};
       taskInfo?.assigneesStatus?.map((item, index) => {
         obj[item?.assignee] = item?.status;
@@ -57,9 +57,10 @@ function AssigneeSelection({
       setAssigneeWithStatus(temp);
     }
   }, [assignee, taskInfo]);
+
   return (
     <CustomPopper
-    widthAuto={widthAuto}
+      widthAuto={widthAuto}
       paperClassName="paperClassNameAssignee"
       labelClassName={labelClassName}
       buttonClassName={
@@ -88,13 +89,14 @@ function AssigneeSelection({
               </>
             )}
 
-            {(assignee === undefined || assignee?.length === 0) && !disabled && (
-              <LightTooltip title="Click to add an assignee" arrow>
-                <div>
-                  <Icon name="addRound" />
-                </div>
-              </LightTooltip>
-            )}
+            {(assignee === undefined || assignee?.length === 0) &&
+              !disabled && (
+                <LightTooltip title="Click to add an assignee" arrow>
+                  <div>
+                    <Icon name="addRound" />
+                  </div>
+                </LightTooltip>
+              )}
             {/* {(assignee === undefined || assignee?.length === 0) && (
               <Image
                 title={
@@ -211,7 +213,6 @@ function AssigneeSelectionSection({
       newData = currentAssignee?.map((item) => {
         return {
           ...item,
-          projectHead : false
         };
       });
       setCurrentAssignee([
@@ -233,19 +234,21 @@ function AssigneeSelectionSection({
     setSearchData(null);
   };
   const renderDiv = (item, index) => {
-    let isProjectManagerTemp =  currentAssignee?.find((row) => (row?._id === item?._id) && row?.projectHead)
-    let findData = currentAssignee?.find((row) => row?._id === item?._id)
-    if(findData){
-      return null
+    let isProjectManagerTemp = currentAssignee?.find(
+      (row) => row?._id === item?._id && row?.projectHead
+    );
+    let findData = currentAssignee?.find((row) => row?._id === item?._id);
+    if (findData) {
+      return null;
     }
-    return ( 
+    return (
       <div
         key={index}
         className="d_flex alignCenter assigneeRowContainer "
-        onClick={() => findData??(isProjectManagerTemp??addAssignee(item))}
+        onClick={() => findData ?? isProjectManagerTemp ?? addAssignee(item)}
         style={{
-          opacity : findData ? 0.5 : 1,
-          cursor : findData ? "default" : "pointer"
+          opacity: findData ? 0.5 : 1,
+          cursor: findData ? "default" : "pointer",
         }}
       >
         <Image
@@ -283,7 +286,7 @@ function AssigneeSelectionSection({
               <LightTooltip title="Add as Project Manager">
                 <div
                   className="projectManagerIcon ml-1"
-                  onClick={(e) => !findData&&addProjectHead(e, item)}
+                  onClick={(e) => !findData && addProjectHead(e, item)}
                 >
                   {" "}
                   {/* <ProjectManager className=" projectHeadIcon " /> */}
@@ -311,26 +314,29 @@ function AssigneeSelectionSection({
     }
   };
   const onOutSideClick = () => {
-    
     if (currentAssignee?.length === 0 && needOneMember) {
       return errorToast("Bugs need at least one assignee");
     }
     if (multiple) {
       const preTeam = [];
-      let preHead;
+      let preHead = [];
+      // let preHead;
       assignee?.forEach((element) => {
         preTeam.push(element._id);
         if (element?.projectHead) {
-          preHead = element._id;
+          preHead.push(element._id);
+          // preHead = element._id;
         }
       });
 
       const currTeam = [];
-      let currHead;
+      let currHead = [];
+      // let currHead;
       currentAssignee.forEach((element) => {
         currTeam.push(element._id);
         if (element?.projectHead) {
-          currHead = element._id;
+          currHead.push(element._id);
+          // currHead = element._id;
         }
       });
 
@@ -418,20 +424,20 @@ function AssigneeSelectionSection({
           </p>
         )}
 
-<div className="alignCenter justifyContent_end mr-1 mb-1">
-<CustomButton
-style={{
-  height:30,
-  minWidth:"auto"
-}}
-onClick={() => {
-  onOutSideClick();
-  handleClose();
-}}
->
-          <p>Done</p>
-        </CustomButton>
-</div>
+        <div className="alignCenter justifyContent_end mr-1 mb-1">
+          <CustomButton
+            style={{
+              height: 30,
+              minWidth: "auto",
+            }}
+            onClick={() => {
+              onOutSideClick();
+              handleClose();
+            }}
+          >
+            <p>Done</p>
+          </CustomButton>
+        </div>
 
         <div className="px-1" style={{ maxWidth: 300 }}>
           {isProjectManager &&
@@ -447,7 +453,7 @@ onClick={() => {
                         title={item?.name}
                       />
                     }
-                    label={capitalizeFirstLetter(item?.name??"")}
+                    label={capitalizeFirstLetter(item?.name ?? "")}
                     handleClose={() => removeAssignee(item?._id)}
                     key={index}
                     className="mr-05 mb-05"
@@ -468,7 +474,7 @@ onClick={() => {
                       title={item?.name}
                     />
                   }
-                  label={capitalizeFirstLetter(item?.name??"")}
+                  label={capitalizeFirstLetter(item?.name ?? "")}
                   handleClose={() => removeAssignee(item?._id)}
                   key={index}
                   className="mr-05 mb-05"
@@ -484,7 +490,7 @@ onClick={() => {
                     title={item?.name}
                   />
                 }
-                label={capitalizeFirstLetter(item?.name??"")}
+                label={capitalizeFirstLetter(item?.name ?? "")}
                 handleClose={() => removeAssignee(item?._id)}
                 key={index}
                 className="mr-05 mb-05"
@@ -493,8 +499,7 @@ onClick={() => {
           )}
         </div>
         {
-        // currentAssignee?.length !== team?.length &&
-         (
+          // currentAssignee?.length !== team?.length &&
           <>
             <div
               className="alignCenter"
@@ -532,7 +537,7 @@ onClick={() => {
                 <span>Team</span>
               </div>
             </div>
-        
+
             <div
               style={{
                 maxHeight: 200,
@@ -563,7 +568,7 @@ onClick={() => {
               )}
             </div>
           </>
-        )}
+        }
       </div>
     </ClickAwayListener>
   );

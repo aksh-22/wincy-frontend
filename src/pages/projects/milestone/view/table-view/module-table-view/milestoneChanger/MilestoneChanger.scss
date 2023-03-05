@@ -1,118 +1,241 @@
-// .milestoneChangerContainer {
-//   margin-right: 10px;
-//   .milestoneToggleButton {
-//     display: flex;
-//     align-items: center;
-//     // background-color: var(--lightGray);
-//     border-radius: 4px;
-//     padding: 10px 05px 10px 0px;
-//     cursor: pointer;
-//     min-width: 150px;
-//     max-width: 300px;
-//     border: 1px dashed var(--divider);
-//     padding: 10px 10px;
-//     margin-bottom: 10px;
-
-//     &:hover {
-//       background-color: var(--progressBarColor);
-//     //   border: 1px solid var(--divider);
-//     //   border: 1px dashed var(--divider);
-//     // padding: 10px 10px;
-//     }
-//     .dropDownArrow {
+// .milestoneChangerContainer{
+//   background-color: #24294D;
+//   height: 50px;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   position: relative;
+//   margin-bottom: 20px;
+//       width: 100%;
+//     justify-content: space-between;
+//       .dropDownArrow {
 //       transition: 0.3s ease-out;
 //       transform: rotate(0deg);
+//       font-size: 36px;
 //       // border: 1px solid var(--divider);
 //     }
 
 //     .dropDownArrowUP {
 //       transform: rotate(180deg);
 //     }
-//   }
-// }
 
-// .milestoneContainer_Dropdown {
-//   max-height: 220px;
-//   min-width: 220px;
-//   max-width: 400px;
-//   .milestoneName_row {
-//     padding: 10px;
-
-//     &:hover {
-//       background-color: var(--divider);
-//       cursor: pointer;
+//     .milestoneChangerContainer_milestoneName{
+//       font-size: 18px;
+//       font-family: "Lato-Bold";
+//       // width: 0px;
 //     }
-//   }
+
+//     .milestoneChangerContainer_sideline{
+//       width: 5px;
+//     background: red;
+//     height: 100%;
+//     border-radius: 6px 0 0 6px;
+//     margin-right: 10px;
+//     }
+
+//     .milestoneChangerContainer_popper{
+//       position: absolute;
+//       /* bottom: 0px; */
+//       top: 50px;
+//       background: var(--popUpColor);
+//       width: 100%;
+//       z-index: 98;
+//       transition: 0.3s ease-out;
+//       max-height: 300px;
+//       overflow: hidden;
+//       overflow-y: auto;
+//       border-radius: 0px 0px 6px 6px;
+//       box-shadow: 0px 10px 10px 0px #00000038;
+//     }
+
+//     .milestoneChangerContainer_popperClose{
+//       height: 0px;
+//     }
+
+//     .milestoneChangerContainer_popperOpen{
+// height: auto;
+//     }
+
+//     .milestoneChangerContainer_row{
+//       height: 50px;
+//       display: flex;
+//       align-items: center;
+//       border-bottom: 1px solid  #24294D;
+
+//       &:hover{
+//         background-color: var(--divider);
+//       }
+//     }
+
 // }
-
-.milestoneChangerContainer{
-  background-color: #24294D;
-  height: 50px;
-  border-radius: 6px;
-  // width: 95vw;
-  cursor: pointer;
+$yellow: #f2983e;
+$color_tundora: #f2983e;
+$color_wild_sand: #f5f5f5;
+$purple: #625df5;
+.milestone_changer_dropdown {
+  height: 200px;
+  width: 300px;
+  overflow-y: auto;
+  .milestoneChangerContainer_row {
+    height: 33px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--divider);
+    &:hover {
+      background-color: $purple !important;
+      cursor: pointer;
+    }
+  }
+}
+.milestoneChangerContainer {
   position: relative;
-  margin-bottom: 20px;
-      width: 100%;
-    justify-content: space-between;
-      .dropDownArrow {
-      transition: 0.3s ease-out;
-      transform: rotate(0deg);
-      font-size: 36px;
-      // border: 1px solid var(--divider);
+  // margin-bottom: 100px;
+  // height: 100px;
+  // width: 100%;
+  position: relative;
+  /* height: 100px; */
+  width: 100%;
+  margin-top: -34px;
+  margin-bottom: 100px;
+  margin-left: 40px;
+
+  .selected_milestone_tab {
+    .milestone_bar {
+      border-bottom-color: transparent;
+      background-color: transparent;
+      span {
+        border-top: 5px solid $purple !important;
+        position: absolute;
+        width: 100%;
+        top: -1px;
+        left: 0;
+      }
+      p {
+        color: $purple !important;
+      }
     }
+  }
 
-    .dropDownArrowUP {
-      transform: rotate(180deg);
-    }
+  .sidebar_milestone {
+    height: 50px;
+    width: 5px;
+    background-color: $yellow;
+    position: relative;
+    border-bottom-right-radius: 40px;
+  }
 
-    .milestoneChangerContainer_milestoneName{
-      font-size: 18px;
-      font-family: "Lato-Bold";
-      // width: 0px;
-    }
-
-    .milestoneChangerContainer_sideline{
-      width: 5px;
-    background: red;
-    height: 100%;
-    border-radius: 6px 0 0 6px;
-    margin-right: 10px;
-    }
-
-    .milestoneChangerContainer_popper{
-      position: absolute;
-      /* bottom: 0px; */
-      top: 50px;
-      background: var(--popUpColor);
-      width: 100%;
-      z-index: 98;
-      transition: 0.3s ease-out;
-      max-height: 300px;
-      overflow: hidden;
-      overflow-y: auto;
-      border-radius: 0px 0px 6px 6px;
-      box-shadow: 0px 10px 10px 0px #00000038;
-    }
-
-    .milestoneChangerContainer_popperClose{
-      height: 0px;
-    }
-
-    .milestoneChangerContainer_popperOpen{
-height: auto;
-    }
-
-    .milestoneChangerContainer_row{
-      height: 50px;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid  #24294D;
-
-      &:hover{
-        background-color: var(--divider);
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    transform: translate(0px, -30%);
+    .last-child-milestone-tree {
+      .border-top-milestone {
+        width: 34%;
+        border-top-right-radius: 50%;
       }
     }
 
+    .remaining_milestone_count {
+      margin-top: 55px;
+      background: $yellow;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+      cursor: pointer;
+      .arrow_container_milestone_changer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 10px;
+        svg {
+          height: 24px;
+          width: 20px;
+          margin-right: -5px;
+          transform: rotate(90deg);
+        }
+      }
+      p {
+        font-size: 13px;
+        font-weight: bold;
+      }
+    }
 
+    li {
+      .border-top-milestone {
+        border-top: 1px solid $yellow;
+        width: 100%;
+        height: 1px;
+        display: inline-block;
+      }
+      .milestone_bar_last {
+        margin-left: -25px;
+        width: 150px;
+        line-height: 1.5;
+        padding-top: 30px;
+        margin-top: 30px;
+        position: relative;
+        padding: 20px;
+        border: 1px solid red;
+        bottom: -20px;
+        // position: absolute;
+        // width: 150px;
+        // height: 50px;
+        // transform: translate(-50%, -60%);
+        // border: 1px solid red;
+        // padding: 20px;
+        &:before {
+          content: "";
+          width: 50px;
+          height: 30px;
+          position: absolute;
+          top: -100%;
+          bottom: 50%;
+          left: 0;
+          border-top-left-radius: 15px;
+          border-top: 1px solid $yellow;
+          margin-top: 20px;
+          transform: rotate(90deg);
+        }
+      }
+      .milestone_bar {
+        width: 130px;
+        line-height: 1.5;
+        padding-top: 30px;
+        margin-top: 50px;
+        position: relative;
+        padding: 13px;
+        border: 1px solid #2e2867;
+        bottom: 5px;
+        background-color: rgb(255 255 255 / 20%);
+        p {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          text-align: center;
+          font-size: 12px;
+        }
+        &:before {
+          content: "";
+          width: 50px;
+          height: 30px;
+          position: absolute;
+          top: -140%;
+          bottom: 50%;
+          left: 15px;
+          border-top-left-radius: 15px;
+          border-top: 1px solid $yellow;
+          margin-top: 20px;
+          transform: rotate(90deg);
+          border-left: 1px solid #df8c40;
+        }
+      }
+    }
+  }
 }

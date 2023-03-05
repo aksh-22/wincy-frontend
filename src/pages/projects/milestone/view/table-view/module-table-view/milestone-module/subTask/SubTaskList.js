@@ -1,17 +1,6 @@
-import InputTextClickAway from "components/clickawayComponent/InputTextClickAway";
-import { LightTooltip } from "components/tooltip/LightTooltip";
-import React from "react";
-import AddTaskRow from "../AddTaskRow";
-import Icon from "components/icons/IosIcon";
-import Checkbox from "@material-ui/core/Checkbox";
 import { useSubTask } from "react-query/milestones/subtask/useSubTask";
 import TableRowSkeleton from "skeleton/tableRow/TableRowSkeleton";
-import AssigneeSelection from "components/assigneeSelection/AssigneeSelection";
-import DueDateProgress from "pages/projects/milestone/dueDateProgress/DueDateProgress";
-import TaskStatus from "../taskStatus/TaskStatus";
-import CustomMenu from "components/CustomMenu";
-import { useProjectTeam } from "hooks/useUserType";
-import { useState } from "react";
+import AddTaskRow from "../AddTaskRow";
 import TaskRowItem from "../TaskRowItem";
 
 function SubTaskList({
@@ -22,6 +11,8 @@ function SubTaskList({
   teamList,
   actionDisabled,
   platforms,
+  isTaskLastIndex,
+  moduleId,
 }) {
   const { data, isLoading } = useSubTask({
     milestoneId,
@@ -30,8 +21,32 @@ function SubTaskList({
   });
 
   return (
-    <div className="ml-1 mb-2">
-      {!isLoading && (
+    <div className={`${actionDisabled && !isTaskLastIndex ? "pb-5" : ""}`}>
+      <div
+        className="abc"
+        // style={{ marginBottom: index === 4 ? 30 : 0 }}
+      >
+        <div
+          className={`tableRowModuleHeader tableRowModuleHeader_topWidth ${
+            // !!!platforms?.length && "tableRowModuleHeader_withoutPlatform"
+            ""
+          } ${actionDisabled && "tableRowModuleHeader_withoutCheckBox"}`}
+        >
+          <div className="row_starter"></div>
+          {!actionDisabled && <div className="border_divider"></div>}
+          <div className="border_divider">SubTask</div>
+          <div className="border_divider">Assignee(s)</div>
+          <div className="border_divider">Due Date</div>
+          <div className="border_divider">Status</div>
+
+          {!!platforms?.length ? (
+            <div className="border_divider">Platform(s)</div>
+          ) : (
+            <div className="border_divider">Created By</div>
+          )}
+        </div>
+      </div>
+      {/* {!isLoading && (
         <AddTaskRow
           style={{
             gridTemplateColumns: "3.9fr 1fr 1fr 1fr 1fr",
@@ -43,17 +58,20 @@ function SubTaskList({
           taskId={taskId}
           //   disabled={disabled}
         />
-      )}
+      )} */}
 
       {isLoading ? (
-        <TableRowSkeleton count={5} />
+        <div className="mt-3 ml-2 pb-2">
+          <TableRowSkeleton count={5} />
+        </div>
       ) : (
-        data?.tasks?.map((taskInfo) => (
+        data?.tasks?.map((taskInfo, index) => (
           <TaskRowItem
             taskInfo={taskInfo}
             key={taskInfo._id}
             disabledSubTask={true}
             parentId={taskInfo?.parent}
+            isLastIndex={data?.tasks?.length - 1 === index}
           />
           // <div
           //   key={taskInfo?._id + ""}
@@ -197,6 +215,17 @@ function SubTaskList({
           //   />
           // </div>
         ))
+      )}
+      {!isLoading && !actionDisabled && (
+        <AddTaskRow
+          orgId={orgId}
+          projectId={projectId}
+          milestoneId={milestoneId}
+          taskId={taskId}
+          isTaskLastIndex={isTaskLastIndex}
+          moduleId={moduleId}
+          //   disabled={disabled}
+        />
       )}
     </div>
   );

@@ -46,7 +46,7 @@ export default function Projects({ projectType }) {
     >
       {userProfile?.length <= 0 && <Organisation />}
       {userProfile?.length > 0 && (
-        <BtnWrapper>
+        <BtnWrapper className="mb-3">
           <CustomButton
             onClick={() => handleActiveProject(0)}
             type={activeProjectType === 0 ? "contained" : "text"}

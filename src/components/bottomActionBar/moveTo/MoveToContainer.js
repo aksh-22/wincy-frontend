@@ -266,7 +266,7 @@ function MoveToContainer({ handleClose, moveId, milestoneId, type }) {
             loading={isLoading || copyLoading}
             className={"mr-2"}
           >
-            <div>{type === "copy" ? "Copy To" : `Move To`}</div>
+            <div>{type === "copy" ? "Copy" : `Move`}</div>
           </CustomButton>
         </div>
       )}
